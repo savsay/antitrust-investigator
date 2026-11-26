@@ -219,4 +219,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md). In short: add sources with `kaynak_yone
 
 [MIT](LICENSE) © 2026 Savaş Saygılı
 
-*This project is not affiliated with Anthropic or with any competition authority. "Claude" is a trademark of Anthropic.*
+
