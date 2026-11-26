@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 436" width="1320" height="436" role="img" aria-label="How antitrust-investigator works: your data passes a scope gate, a pre-scan and contextual reading, then a report goes to the legal team; a three-level knowledge base feeds the reading step">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#8fb0dc"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#f2b84b"/>
+    </marker>
+  </defs>
+  <rect width="1320" height="436" rx="20" fill="#0f1b2d"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+
+    <!-- Your data -->
+    <rect x="24" y="24" width="220" height="388" rx="14" fill="#16263f" stroke="#2f4a73"/>
+    <text x="134" y="54" font-size="15" font-weight="700" fill="#c9d7ee" letter-spacing="1">YOUR DATA</text>
+    <g font-size="14" fill="#c9d7ee">
+      <rect x="40" y="70" width="188" height="96" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="134" y="106" font-size="16" font-weight="700" fill="#ffffff">Outlook · Teams</text>
+      <text x="134" y="130">SharePoint · OneDrive</text>
+      <rect x="40" y="182" width="188" height="96" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="134" y="218" font-size="16" font-weight="700" fill="#ffffff">Purview eDiscovery</text>
+      <text x="134" y="242">PST · MSG · EML</text>
+      <rect x="40" y="294" width="188" height="96" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="134" y="330" font-size="16" font-weight="700" fill="#ffffff">File shares</text>
+      <text x="134" y="354">DOCX · XLSX · PDF</text>
+    </g>
+    <g fill="none" stroke="#8fb0dc" stroke-width="2">
+      <path d="M228 118H256V160"/>
+      <path d="M228 342H256V160"/>
+      <path d="M228 230H256"/>
+      <path d="M256 160H278" marker-end="url(#a)"/>
+    </g>
+
+    <!-- main flow -->
+    <g font-size="14" fill="#c9d7ee">
+      <rect x="280" y="96" width="166" height="128" rx="12" fill="#1d3354" stroke="#f2b84b" stroke-width="2"/>
+      <text x="363" y="138" font-size="16" font-weight="700" fill="#ffffff">1 · Scope gate</text>
+      <text x="363" y="164">mandate · people</text>
+      <text x="363" y="186">dates · systems</text>
+
+      <rect x="482" y="96" width="166" height="128" rx="12" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="565" y="138" font-size="16" font-weight="700" fill="#ffffff">2 · Pre-scan</text>
+      <text x="565" y="164">concept matching</text>
+      <text x="565" y="186">TR · EN · RU</text>
+
+      <rect x="684" y="96" width="166" height="128" rx="12" fill="#2b4b7b" stroke="#8fb0dc" stroke-width="2"/>
+      <text x="767" y="138" font-size="16" font-weight="700" fill="#ffffff">3 · Read in context</text>
+      <text x="767" y="164">thread · parties</text>
+      <text x="767" y="186">quote check</text>
+
+      <rect x="886" y="96" width="166" height="128" rx="12" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="969" y="138" font-size="16" font-weight="700" fill="#ffffff">4 · Report</text>
+      <text x="969" y="164">Claude doc + .docx</text>
+      <text x="969" y="186">findings.json</text>
+
+      <rect x="1088" y="116" width="208" height="88" rx="44" fill="#f2b84b"/>
+      <text x="1192" y="156" font-size="16" font-weight="700" fill="#0f1b2d">Legal team</text>
+      <text x="1192" y="180" font-size="14" fill="#0f1b2d">decides</text>
+    </g>
+    <g fill="none" stroke="#8fb0dc" stroke-width="2">
+      <path d="M446 160H480" marker-end="url(#a)"/>
+      <path d="M648 160H682" marker-end="url(#a)"/>
+      <path d="M850 160H884" marker-end="url(#a)"/>
+      <path d="M1052 160H1086" marker-end="url(#a)"/>
+    </g>
+    <text x="363" y="252" font-size="12.5" fill="#8fb0dc">no mandate → no content</text>
+    <text x="565" y="252" font-size="12.5" fill="#8fb0dc">queue: ACCESS · A · B · C</text>
+
+    <!-- knowledge base -->
+    <path d="M767 284V226" fill="none" stroke="#f2b84b" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#g)"/>
+    <rect x="482" y="284" width="570" height="128" rx="14" fill="#16263f" stroke="#2f4a73"/>
+    <text x="767" y="310" font-size="15" font-weight="700" fill="#c9d7ee" letter-spacing="1">KNOWLEDGE BASE, IN ORDER</text>
+    <g font-size="13.5" fill="#c9d7ee">
+      <rect x="498" y="322" width="170" height="78" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="583" y="348" font-size="15" font-weight="700" fill="#ffffff">1 · Your pack</text>
+      <text x="583" y="370">your own sources,</text>
+      <text x="583" y="388">if attached</text>
+      <rect x="682" y="322" width="170" height="78" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="767" y="348" font-size="15" font-weight="700" fill="#ffffff">2 · Bundled</text>
+      <text x="767" y="370">50 sources</text>
+      <text x="767" y="388">140 controls</text>
+      <rect x="866" y="322" width="170" height="78" rx="10" fill="#1d3354" stroke="#4f73a8"/>
+      <text x="951" y="348" font-size="15" font-weight="700" fill="#ffffff">3 · Official web</text>
+      <text x="951" y="370">labelled as not</text>
+      <text x="951" y="388">legally approved</text>
+    </g>
+  </g>
+</svg>

@@ -60,29 +60,9 @@ Plus 80 process controls for data collection, privacy (KVKK/GDPR), model testing
 
 ## How it works
 
-```mermaid
-flowchart LR
-    subgraph Sources["Your data"]
-        A1["Outlook / Teams<br/>SharePoint / OneDrive"]
-        A2["Purview eDiscovery<br/>PST · MSG · EML"]
-        A3["File shares<br/>DOCX · XLSX · PDF · PPTX"]
-    end
-    G{{"Scope gate<br/>mandate · people · dates · systems"}}
-    S["Pre-scan script<br/>concept co-occurrence<br/>TR · EN · RU"]
-    R["Contextual reading<br/>thread · parties · rebuttals<br/>quote verification"]
-    O["Report: Claude doc + .docx<br/>findings.json"]
-    L(["Legal team decides"])
-    subgraph KB["Knowledge base, in order"]
-        K1["Your own source pack"]
-        K2["Bundled catalogue<br/>50 sources · 140 controls"]
-        K3["Official websites only<br/>labelled not approved"]
-    end
-    A1 --> G
-    A2 --> G
-    A3 --> G
-    G --> S --> R --> O --> L
-    KB -.-> R
-```
+<p align="center">
+  <img src="docs/how-it-works.svg" alt="Your data → scope gate → pre-scan → contextual reading → report → legal team, with a three-level knowledge base feeding the reading step" width="100%">
+</p>
 
 1. **Scope gate.** Before reading any content, Claude confirms who authorised the review and its limits: entities, custodians, dates, jurisdictions and systems. Technical admin access is not treated as legal authority.
 2. **Pre-scan.** A bundled script builds a reading queue (`ACCESS` → `A` → `B` → `C`) from concept co-occurrence. It folds Turkish and Cyrillic characters, so `RAKİP`, `rakip` and `rakıp` all match. Hidden Excel sheets and cell comments are included.
