@@ -96,6 +96,10 @@ If the allegation touches the person who asked for the review, or their line, th
 
 **Roll out to the whole organisation (Team / Enterprise owners).** Go to *Organization settings → Plugins & skills → Add → Upload a skill* and select the same zip. Everyone gets it, and it also loads in Claude Code for people who sign in with their Claude account.
 
+### Claude directory
+
+The plugin has been submitted to the Claude directory (Customize page in Claude) under the name **Antitrust Investigator**. Once it passes review you can add it from there in one click. The directory edition lives in [`directory/`](directory/rekabet-ihlali-inceleme): the same skill, with the catalogue as JSON and the bid-screen script inside Markdown, because the directory accepts only text files from individual publishers.
+
 ### Claude Code
 
 ```bash

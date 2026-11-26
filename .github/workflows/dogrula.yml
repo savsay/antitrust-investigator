@@ -20,6 +20,8 @@ jobs:
         run: python tests/test_skill.py
       - name: Kaynak katalogu
         run: python plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/kaynak_yonet.py dogrula
+      - name: Claude dizini surumu guncel mi
+        run: python tools/dizin_surumu.py --denetle
       - name: Skill zip
         run: python tools/paketle.py
       - uses: actions/upload-artifact@v4

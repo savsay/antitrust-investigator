@@ -49,6 +49,10 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 
 Skill'in çalışması için kurumda **Code execution and file creation** ve **Skills** açık olmalıdır.
 
+### Claude dizini
+
+Eklenti Claude dizinine (Claude'da Customize sayfası) **Antitrust Investigator** adıyla gönderildi; incelemeden geçince oradan tek tıkla eklenebilir. Dizine giden kopya `directory/` klasöründedir: aynı skill, katalog JSON ve ihale betiği Markdown içinde, çünkü dizin bireysel yayıncılardan yalnız metin dosyası kabul ediyor. Bu klasör `python3 tools/dizin_surumu.py` ile üretilir.
+
 ### Claude Code
 
 ```bash

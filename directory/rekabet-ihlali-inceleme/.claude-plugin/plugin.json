@@ -1,0 +1,27 @@
+{
+  "name": "rekabet-ihlali-inceleme",
+  "displayName": "Antitrust Investigator",
+  "version": "1.2.0",
+  "description": "Find bid rigging, price fixing, market sharing and no-poach red flags in corporate email, Teams, SharePoint and file shares, with exact quotes, control IDs and legal sources. Turkish, English and Russian documents.",
+  "author": {
+    "name": "Savaş Saygılı",
+    "url": "https://github.com/savsay"
+  },
+  "repository": "https://github.com/savsay/antitrust-investigator",
+  "keywords": [
+    "antitrust",
+    "competition-law",
+    "bid-rigging",
+    "cartel",
+    "price-fixing",
+    "no-poach",
+    "ediscovery",
+    "purview",
+    "compliance",
+    "internal-investigation",
+    "rekabet",
+    "kvkk"
+  ],
+  "homepage": "https://github.com/savsay/antitrust-investigator",
+  "license": "MIT"
+}

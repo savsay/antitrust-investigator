@@ -59,7 +59,17 @@ Yeni bir risk ailesi eklerseniz SKILL.md'deki bölüm 6 özetine de bir satır e
 - Eşiği komut satırı seçeneği yapın ve varsayılanı `SKILL.md` bölüm 5'e yazın.
 - `tests/test_skill.py` içindeki rastgele rekabetçi pazar testinin yanlış alarm sınırı (%12) geçilmemeli; sentetik halka (`tests/veri/ihale_ornek.csv`) yakalanmaya devam etmeli. Gerçek ihale verisini repoya koymayın.
 
-## 5. Test ve sürüm
+## 5. Claude dizini sürümü
+
+Claude dizini, Verified olmayan yayıncılardan yalnız Markdown, metin, JSON, YAML ve görsel kabul eder. Bu yüzden dizine `directory/rekabet-ihlali-inceleme/` klasörü gönderilir: CSV kataloglar JSON'a, `ihale_analiz.py` Markdown içinde kod bloğuna dönüşür. Bu klasörü elle düzenlemeyin; ana eklentiyi değiştirdikten sonra şunu çalıştırın:
+
+```bash
+python3 tools/dizin_surumu.py
+```
+
+Test ve CI, klasörün güncel olmasını ister. Dizin, `main` dalındaki yeni commit'leri yaklaşık 6 saatte bir tarar.
+
+## 6. Test ve sürüm
 
 ```bash
 python3 tests/test_skill.py      # frontmatter, betik eşliği, ad tutarlılığı, katalog, 60 sentetik örnek, ihale taraması

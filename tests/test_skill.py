@@ -136,6 +136,20 @@ def _():
         assert alan in d["properties"] and alan not in d["required"], alan
 
 
+@test("Claude dizini surumu (directory/) guncel ve yalniz izinli dosya turlerinden olusuyor")
+def _():
+    r = subprocess.run([sys.executable, os.path.join(KOK, "tools", "dizin_surumu.py"), "--denetle"],
+                       capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout + r.stderr
+    izinli = (".md", ".json", ".png")
+    for kok, _, dosyalar in os.walk(os.path.join(KOK, "directory")):
+        for ad in dosyalar:
+            yol = os.path.join(kok, ad)
+            assert ad.endswith(izinli) or ad == "LICENSE", f"izinsiz dosya: {yol}"
+            if not ad.endswith(".png"):
+                assert not open(yol, encoding="utf-8").read().startswith("#!"), f"#! ile basliyor: {yol}"
+
+
 print()
 if basarisiz:
     print(f"{len(basarisiz)} test kaldi."); sys.exit(1)

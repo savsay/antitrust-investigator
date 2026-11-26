@@ -55,7 +55,7 @@ Yetki beyanı yoksa çalışan iletişim **içeriğini** inceleme; yine de arama
 Hukuk bilgisini şu sırayla kullan. "Skill klasörü", bu SKILL.md dosyasının bulunduğu klasördür.
 
 1. **Kullanıcının eklediği kaynak paketi.** Konuşmaya eklenmiş dosyalarda, proje bilgisinde, bağlı klasörlerde veya SharePoint'te şunları ara: `Rekabet_AI_Agent_Paketi` (zip veya klasör), `Kaynak_Envanteri.csv`, `Kontrol_Katalogu.csv|json`, `Arama_Ipuclari_TR_EN_RU.csv`, `Bulgu_Semasi.json`, `02_Makine_Okunur_Metinler/*.txt`. Kullanıcı bir paket verdiyse o, skill'in kendi kataloğundan önce gelir (kuruma özel ve daha yeni olabilir). Madde metni gerekiyorsa `02_Makine_Okunur_Metinler/<ID>.txt` içinde grep ile ara, sayfa bilgisini `<ID>.pages.json`'dan al. Zip'i yalnız ayrı, boş bir klasöre aç.
-2. **Skill klasöründeki `references/`.** Skill ile birlikte gelen katalog: `kaynaklar.csv` (tüm kaynaklar; `Kaynak_Envanteri.csv` ile aynı sütunlar), `kontroller.csv` (147 kontrol; risk göstergesi, gerekli kanıt, karşı kontrol, kaynak kimlikleri), `arama_ipuclari.csv`, `bulgu_semasi.json`. Dosyaları baştan sona okuma; ihtiyacın olan satırları grep veya csv ile çek. Varsa `references/metinler/<ID>.txt` kaynak metnidir.
+2. **Skill klasöründeki `references/`.** Skill ile birlikte gelen katalog: `kaynaklar.csv` (tüm kaynaklar; `Kaynak_Envanteri.csv` ile aynı sütunlar), `kontroller.csv` (147 kontrol; risk göstergesi, gerekli kanıt, karşı kontrol, kaynak kimlikleri), `arama_ipuclari.csv`, `bulgu_semasi.json`. Claude dizininden kurulan sürümde bu tablolar aynı sütunlarla `.json` dosyasıdır (`kaynaklar.json`, `kontroller.json`, `arama_ipuclari.json`; her satır bir nesne). Dosyaları baştan sona okuma; ihtiyacın olan satırları grep, csv veya json ile çek. Varsa `references/metinler/<ID>.txt` kaynak metnidir.
 3. **Bu SKILL.md'deki çekirdek tablolar** (bölüm 6, 7 ve 10). Yalnız yukarıdaki dosyalar yoksa (ör. skill tek dosya olarak kurulduysa) bunlarla çalış.
 4. **Web — kendini güncelleme.** Şu durumlarda resmî kaynaktan güncel bilgi çek:
    - Paket kaydında "tam metin indirilemedi" / `ERISIM_NOTU` var (TR-05, TR-07, TR-11, TR-12, TR-13, EU-11, EU-12, DP-03, DP-04).
@@ -108,6 +108,7 @@ Her belge için envanter tut: document_id, kaynak yol/URI, sha256, boyut, deği�
    ```
    python3 scripts/ihale_analiz.py teklifler.csv --cikti ihale_uyarilari.csv
    ```
+   `scripts/ihale_analiz.py` yoksa (Claude dizini sürümü) `scripts/ihale_analiz.md` içindeki kodu değiştirmeden çalışma klasörüne `ihale_analiz.py` olarak yaz ve onu çalıştır.
    Betik beş tarama yapar: kazanan rotasyonu (IHL-03), kaybedenle kazanan arasında sabit yüzde farkı (IHL-07), aynı ihalede olağandışı yakın/aynı teklifler (IHL-05), hep az farkla kaybeden destek-teklif profili (IHL-01), çekilmenin ardından hep aynı firmanın kazanması (IHL-02). Varsayılan eşikler 500 sentetik rekabetçi pazarda %7–9 yanlış alarm ve sentetik halkada %100 yakalama verdi; fiyat bandı dar sektörlerde (asfalt, beton) yanlış alarm artar, `--yakin-teklif` ve `--kaybeden-fark` değerlerini düşür. Her uyarı yalnız bir okuma önceliğidir: uyarı veren ihalelerin yazışmalarını ve teklif belgelerini oku; belgeyle desteklenmeyen uyarıyla bulgu açma (IHL-10, MT-24). Ayrıca belge düzeyinde bak: farklı firmaların tekliflerinde aynı yazar/oluşturma metadatası veya aynı yazım hatası (IHL-05), kaybedene sonradan alt yüklenicilik (IHL-04).
 6. **Gizleme izleri.** "Telefonla konuşalım", "maile yazma", kişisel hesaba geçiş, inceleme duyurusundan sonra silme talebi — tek başına ihlal değil, ama ilgili konuşmanın önceliğini yükseltir.
 
@@ -185,7 +186,7 @@ Raporu kendiliğinden "avukat-müvekkil gizliliği" ibaresiyle etiketleme; gizli
 
 ## 10. Çekirdek kaynak listesi (yedek)
 
-Tam ve güncel liste `references/kaynaklar.csv` dosyasındadır; bu tablo yalnız o dosya yoksa kullanılır.
+Tam ve güncel liste `references/kaynaklar.csv` (dizin sürümünde `kaynaklar.json`) dosyasındadır; bu tablo yalnız o dosya yoksa kullanılır.
 
 | ID | Belge | Sürüm | Bağlantı |
 |---|---|---|---|
@@ -411,6 +412,6 @@ Kullanıcı "şu kılavuzu/kararı kaynaklara ekle" dediğinde veya web'den yeni
 
 1. Kaynağı resmî sayfasından doğrula: başlık, kurum, sürüm/karar no, belge türü, yürürlük durumu. Taslak, duyuru ve kararı birbirinden ayır.
 2. `scripts/kaynak_yonet.py ekle ...` komutunu hazırla (bölüm 3'teki biçim). `--kontroller` ile ilgili kontrol kimliklerini ver; betik bu kimlikleri `kontroller.csv` içindeki `source_ids` alanına da işler. Kimliği vermezsen `--onek` (TR, EU, US, UK, OECD, DP, RU…) ile sıradaki boş numarayı kendisi seçer.
-3. Skill klasörü yazılabilir bir çalışma kopyasıysa (ör. kullanıcının GitHub reposunun klonu) komutu çalıştır, ardından `python3 scripts/kaynak_yonet.py dogrula` ile kataloğu denetle. Kurulu skill klasörüne yazma; orası salt okunurdur. O durumda komutu kullanıcıya ver ve repoda çalıştırmasını söyle.
+3. Skill klasörü yazılabilir bir çalışma kopyasıysa (ör. kullanıcının GitHub reposunun klonu) komutu çalıştır, ardından `python3 scripts/kaynak_yonet.py dogrula` ile kataloğu denetle. Kurulu skill klasörüne yazma; orası salt okunurdur. O durumda (Claude dizininden kurulan sürümde `kaynak_yonet.py` hiç yoktur) komutu kullanıcıya ver ve https://github.com/savsay/antitrust-investigator reposunun bir klonunda çalıştırmasını söyle.
 4. Kaynağın metnini eklemek istenirse `references/metinler/<ID>.txt` olarak kaydet. Önce yeniden kullanım hakkını kontrol et (kanun ve resmî karar metinleri genelde serbesttir; uluslararası kuruluş yayınlarının lisansı ayrıca okunmalıdır).
 5. Yeni kaynak her zaman `legal_approval=Bekliyor` ile girer. Hukuk onayı verilene kadar raporda onaysız olarak gösterilir.

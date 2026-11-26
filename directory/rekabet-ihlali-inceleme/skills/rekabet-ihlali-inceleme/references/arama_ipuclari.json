@@ -1,0 +1,362 @@
+[
+ {
+  "Konu": "Fiyat",
+  "Dil": "tr",
+  "Arama ipucu": "aynı fiyatı uygulayalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Fiyat",
+  "Dil": "en",
+  "Arama ipucu": "agree on the same price",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Fiyat",
+  "Dil": "ru",
+  "Arama ipucu": "согласуем одинаковую цену",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Fiyat",
+  "Dil": "tr",
+  "Arama ipucu": "zam tarihini birlikte belirleyelim",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Fiyat",
+  "Dil": "en",
+  "Arama ipucu": "coordinate the price increase date",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Fiyat",
+  "Dil": "ru",
+  "Arama ipucu": "согласуем дату повышения цен",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "tr",
+  "Arama ipucu": "göstermelik teklif",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "en",
+  "Arama ipucu": "cover bid",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "ru",
+  "Arama ipucu": "прикрывающее предложение",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "tr",
+  "Arama ipucu": "bu ihaleden çekilin",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "en",
+  "Arama ipucu": "withdraw from this tender",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "ru",
+  "Arama ipucu": "откажитесь от участия в этом тендере",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "tr",
+  "Arama ipucu": "sırayla kazanalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "en",
+  "Arama ipucu": "take turns winning",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İhale",
+  "Dil": "ru",
+  "Arama ipucu": "будем выигрывать по очереди",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "tr",
+  "Arama ipucu": "bu müşteri sizde kalsın",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "en",
+  "Arama ipucu": "leave this customer to you",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "ru",
+  "Arama ipucu": "оставим этого клиента вам",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "tr",
+  "Arama ipucu": "bölgeleri paylaşalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "en",
+  "Arama ipucu": "allocate the territories",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Pazar",
+  "Dil": "ru",
+  "Arama ipucu": "разделим территории",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Arz",
+  "Dil": "tr",
+  "Arama ipucu": "üretimi birlikte azaltalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Arz",
+  "Dil": "en",
+  "Arama ipucu": "reduce output together",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Arz",
+  "Dil": "ru",
+  "Arama ipucu": "совместно сократим производство",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "tr",
+  "Arama ipucu": "gelecek ayın gizli fiyatları",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "en",
+  "Arama ipucu": "confidential future prices",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "ru",
+  "Arama ipucu": "конфиденциальные будущие цены",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "tr",
+  "Arama ipucu": "rakibin teklif tablosu",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "en",
+  "Arama ipucu": "competitor bid table",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bilgi",
+  "Dil": "ru",
+  "Arama ipucu": "таблица предложения конкурента",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "tr",
+  "Arama ipucu": "birbirimizden çalışan almayalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "en",
+  "Arama ipucu": "do not hire each other’s employees",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "ru",
+  "Arama ipucu": "не будем нанимать сотрудников друг друга",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "tr",
+  "Arama ipucu": "ücret artışını birlikte sınırlayalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "en",
+  "Arama ipucu": "jointly cap wage increases",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "İK",
+  "Dil": "ru",
+  "Arama ipucu": "совместно ограничим повышение зарплат",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "tr",
+  "Arama ipucu": "bu fiyatın altında satamazsın",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "en",
+  "Arama ipucu": "you may not sell below this price",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "ru",
+  "Arama ipucu": "нельзя продавать ниже этой цены",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "tr",
+  "Arama ipucu": "fiyatı bozarsan sevkiyat yok",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "en",
+  "Arama ipucu": "no deliveries if you undercut the price",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Dikey",
+  "Dil": "ru",
+  "Arama ipucu": "не будет поставок при снижении цены",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "JV",
+  "Dil": "tr",
+  "Arama ipucu": "diğer projeleri de paylaşalım",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "JV",
+  "Dil": "en",
+  "Arama ipucu": "allocate other projects as well",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "JV",
+  "Dil": "ru",
+  "Arama ipucu": "разделим и другие проекты",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "M&A",
+  "Dil": "tr",
+  "Arama ipucu": "izin gelmeden satışları birleştirelim",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "M&A",
+  "Dil": "en",
+  "Arama ipucu": "combine sales before clearance",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "M&A",
+  "Dil": "ru",
+  "Arama ipucu": "объединим продажи до получения разрешения",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Muhafaza",
+  "Dil": "tr",
+  "Arama ipucu": "incelemeden sonra mesajları sil",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Muhafaza",
+  "Dil": "en",
+  "Arama ipucu": "delete messages after the inspection starts",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Muhafaza",
+  "Dil": "ru",
+  "Arama ipucu": "удали сообщения после начала проверки",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "tr",
+  "Arama ipucu": "bu öneriyi reddettik",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "en",
+  "Arama ipucu": "we rejected this proposal",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "ru",
+  "Arama ipucu": "мы отклонили это предложение",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "tr",
+  "Arama ipucu": "yalnız eğitim örneğidir",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "en",
+  "Arama ipucu": "training example only",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "ru",
+  "Arama ipucu": "только учебный пример",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "tr",
+  "Arama ipucu": "hukuk değerlendirmesi bekleniyor",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "en",
+  "Arama ipucu": "legal review is pending",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ },
+ {
+  "Konu": "Bağlam",
+  "Dil": "ru",
+  "Arama ipucu": "ожидается юридическая оценка",
+  "Kullanım sınırı": "Tek başına ihlal kuralı değildir; bağlam ve yetkili hukuk incelemesi gerekir."
+ }
+]
