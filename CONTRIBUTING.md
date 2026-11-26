@@ -41,7 +41,7 @@ Skill de bunu üretebilir: Claude'a "şu kılavuzu kaynaklara ekle" deyin, size 
 
 ## 2. Kontrol eklemek
 
-`kontroller.csv` dosyasına bir satır ekleyin. Kimlik, ailenin önekiyle sıradaki numara olmalı (ör. `IHL-09`). `source_ids` alanı `; ` ile ayrılmış kaynak kimlikleri içerir ve hepsi `kaynaklar.csv` içinde bulunmalıdır. `dogrula` bunu denetler.
+`kontroller.csv` dosyasına bir satır ekleyin. Kimlik, ailenin önekiyle sıradaki numara olmalı (ör. `IHL-11`). `source_ids` alanı `; ` ile ayrılmış kaynak kimlikleri içerir ve hepsi `kaynaklar.csv` içinde bulunmalıdır. `dogrula` bunu denetler.
 
 Yeni bir risk ailesi eklerseniz SKILL.md'deki bölüm 6 özetine de bir satır ekleyin.
 
@@ -51,10 +51,18 @@ Yeni bir risk ailesi eklerseniz SKILL.md'deki bölüm 6 özetine de bir satır e
 - **Ön-tarama betiği için:** `scripts/rekabet_tarama.py` içindeki `K` sözlüğüne kök ekleyin. Kökleri küçük harf ve ASCII yazın (`ş`→`s`, `ı`→`i`); betik Türkçe ve Kiril harfleri kendisi katlar.
 - Betiği değiştirdiyseniz **SKILL.md bölüm 11'deki kopyayı da aynı yapın**. Test iki kopyanın birebir aynı olmasını ister, çünkü tek dosya olarak kurulan skill gömülü kopyayı kullanır.
 
-## 4. Test ve sürüm
+## 4. İhale taramasını geliştirmek
+
+`scripts/ihale_analiz.py` yalnız standart kütüphaneyle çalışır ve tek dosya kurulumda gömülü kopyası yoktur. Yeni bir tarama eklerken:
+
+- `tara()` içine bir blok ekleyin; her uyarı bir kontrol kimliği (`IHL-…`), ölçülen metrik ve **alternatif açıklama** taşımalı.
+- Eşiği komut satırı seçeneği yapın ve varsayılanı `SKILL.md` bölüm 5'e yazın.
+- `tests/test_skill.py` içindeki rastgele rekabetçi pazar testinin yanlış alarm sınırı (%12) geçilmemeli; sentetik halka (`tests/veri/ihale_ornek.csv`) yakalanmaya devam etmeli. Gerçek ihale verisini repoya koymayın.
+
+## 5. Test ve sürüm
 
 ```bash
-python3 tests/test_skill.py      # frontmatter, betik eşliği, ad tutarlılığı, katalog, 60 sentetik örnek
+python3 tests/test_skill.py      # frontmatter, betik eşliği, ad tutarlılığı, katalog, 60 sentetik örnek, ihale taraması
 python3 tools/paketle.py         # dist/rekabet-ihlali-inceleme.zip
 ```
 

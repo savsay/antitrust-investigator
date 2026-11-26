@@ -29,7 +29,7 @@ ZORUNLU = ["source_id", "region", "title", "authority", "version", "document_sta
 ONAY_DEGERLERI = {"Bekliyor", "Onaylandı", "Reddedildi", "Geri çekildi"}
 RESMI_ALANLAR = ("rekabet.gov.tr", "mevzuat.gov.tr", "resmigazete.gov.tr", "kvkk.gov.tr", "danistay.gov.tr",
                  "yargitay.gov.tr", "europa.eu", "justice.gov", "ftc.gov", "gov.uk", "oecd.org", "fas.gov.ru",
-                 "wipo.int", "nist.gov")
+                 "wipo.int", "nist.gov", "worldbank.org", "theiia.org", "iso.org")
 ID_RX = re.compile(r"^[A-Z]{2,5}-\d{2,3}$")
 
 

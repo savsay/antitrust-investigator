@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: ihale-teklif-verisi-taramasi
+expected_outcome: |
+  Claude teklif tablosunu kodla (ihale_analiz.py veya eşdeğeri) analiz eder. Alfa/Beta/Gama halkasında
+  rotasyon ve sabit fark, Lambda'nın hep az farkla kaybetmesi ve Pi çekilmesinden sonra Rho'nun kazanması
+  uyarı olarak çıkar; Delta/Epsilon/Zeta/Eta rekabetçi grubu işaretlenmez. Belediye ihaleleri için kamu
+  ihalesi paralel riski (4734/TCK) belirtilir ve hukuka yönlendirilir. İstatistiksel uyarının kanıt
+  olmadığı, belgelerle desteklenmesi gerektiği söylenir.
+context:
+  scaffold_script: place-files.sh

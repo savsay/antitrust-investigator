@@ -1,0 +1,95 @@
+ihale_id,tarih,firma,teklif,kazanan,kamu,idare,durum
+BLD-2025-01,2025-01-15,Alfa Yapi,23115414.39,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-01,2025-01-15,Beta Insaat,23741023.06,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-01,2025-01-15,Gama Taahhut,24353844.34,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-02,2025-02-15,Beta Insaat,19785685.91,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-02,2025-02-15,Alfa Yapi,20606308.71,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-02,2025-02-15,Gama Taahhut,20301829.19,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-03,2025-03-15,Gama Taahhut,25137436.54,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-03,2025-03-15,Alfa Yapi,25952766.53,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-03,2025-03-15,Beta Insaat,26381943.45,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-04,2025-04-15,Alfa Yapi,18238377.76,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-04,2025-04-15,Beta Insaat,18753815.88,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-04,2025-04-15,Gama Taahhut,19242106.79,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-05,2025-05-15,Beta Insaat,18212287.76,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-05,2025-05-15,Alfa Yapi,18906553.77,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-05,2025-05-15,Gama Taahhut,18684382.84,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-06,2025-06-15,Gama Taahhut,22359531.84,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-06,2025-06-15,Alfa Yapi,23103297.89,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-06,2025-06-15,Beta Insaat,23490082.85,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-07,2025-07-15,Alfa Yapi,24475443.65,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-07,2025-07-15,Beta Insaat,25135060.83,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-07,2025-07-15,Gama Taahhut,25868973.50,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-08,2025-08-15,Beta Insaat,23585115.16,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-08,2025-08-15,Alfa Yapi,24505009.26,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-08,2025-08-15,Gama Taahhut,24124770.87,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-09,2025-09-15,Gama Taahhut,25657704.58,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-09,2025-09-15,Alfa Yapi,26529688.14,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-09,2025-09-15,Beta Insaat,26874759.80,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-10,2025-10-15,Alfa Yapi,18773731.01,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-10,2025-10-15,Beta Insaat,19377259.82,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-10,2025-10-15,Gama Taahhut,19818612.79,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-11,2025-11-15,Beta Insaat,24457026.19,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-11,2025-11-15,Alfa Yapi,25470367.03,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-11,2025-11-15,Gama Taahhut,25073900.93,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-12,2025-12-15,Gama Taahhut,25784926.11,1,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-12,2025-12-15,Alfa Yapi,26667948.92,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+BLD-2025-12,2025-12-15,Beta Insaat,27082626.16,0,evet,Ornek Buyuksehir Belediyesi,gecerli
+OZL-2025-01,2025-02-03,Delta Muhendislik,8870589.86,0,hayir,Ozel isveren,gecerli
+OZL-2025-01,2025-02-03,Epsilon Yapi,9578548.15,0,hayir,Ozel isveren,gecerli
+OZL-2025-01,2025-02-03,Zeta Insaat,8750744.10,1,hayir,Ozel isveren,gecerli
+OZL-2025-01,2025-02-03,Eta Taahhut,9121101.81,0,hayir,Ozel isveren,gecerli
+OZL-2025-02,2025-03-03,Delta Muhendislik,4819245.50,0,hayir,Ozel isveren,gecerli
+OZL-2025-02,2025-03-03,Epsilon Yapi,4930797.28,0,hayir,Ozel isveren,gecerli
+OZL-2025-02,2025-03-03,Zeta Insaat,4550557.85,1,hayir,Ozel isveren,gecerli
+OZL-2025-02,2025-03-03,Eta Taahhut,4828121.45,0,hayir,Ozel isveren,gecerli
+OZL-2025-03,2025-04-03,Delta Muhendislik,5119164.69,1,hayir,Ozel isveren,gecerli
+OZL-2025-03,2025-04-03,Epsilon Yapi,5795739.69,0,hayir,Ozel isveren,gecerli
+OZL-2025-03,2025-04-03,Zeta Insaat,5283449.17,0,hayir,Ozel isveren,gecerli
+OZL-2025-03,2025-04-03,Eta Taahhut,5293565.88,0,hayir,Ozel isveren,gecerli
+OZL-2025-04,2025-05-03,Delta Muhendislik,5507842.32,1,hayir,Ozel isveren,gecerli
+OZL-2025-04,2025-05-03,Epsilon Yapi,6876199.44,0,hayir,Ozel isveren,gecerli
+OZL-2025-04,2025-05-03,Zeta Insaat,6286460.99,0,hayir,Ozel isveren,gecerli
+OZL-2025-04,2025-05-03,Eta Taahhut,6206967.28,0,hayir,Ozel isveren,gecerli
+OZL-2025-05,2025-06-03,Delta Muhendislik,6282537.78,0,hayir,Ozel isveren,gecerli
+OZL-2025-05,2025-06-03,Epsilon Yapi,5156976.04,1,hayir,Ozel isveren,gecerli
+OZL-2025-05,2025-06-03,Zeta Insaat,5586833.71,0,hayir,Ozel isveren,gecerli
+OZL-2025-05,2025-06-03,Eta Taahhut,6800621.23,0,hayir,Ozel isveren,gecerli
+OZL-2025-06,2025-07-03,Delta Muhendislik,7899688.02,1,hayir,Ozel isveren,gecerli
+OZL-2025-06,2025-07-03,Epsilon Yapi,8237488.26,0,hayir,Ozel isveren,gecerli
+OZL-2025-06,2025-07-03,Zeta Insaat,8656185.08,0,hayir,Ozel isveren,gecerli
+OZL-2025-06,2025-07-03,Eta Taahhut,8479294.69,0,hayir,Ozel isveren,gecerli
+OZL-2025-07,2025-08-03,Delta Muhendislik,5095232.37,1,hayir,Ozel isveren,gecerli
+OZL-2025-07,2025-08-03,Epsilon Yapi,5681961.76,0,hayir,Ozel isveren,gecerli
+OZL-2025-07,2025-08-03,Zeta Insaat,5583165.72,0,hayir,Ozel isveren,gecerli
+OZL-2025-07,2025-08-03,Eta Taahhut,5465638.72,0,hayir,Ozel isveren,gecerli
+OZL-2025-08,2025-09-03,Delta Muhendislik,10146406.14,0,hayir,Ozel isveren,gecerli
+OZL-2025-08,2025-09-03,Epsilon Yapi,8421977.28,1,hayir,Ozel isveren,gecerli
+OZL-2025-08,2025-09-03,Zeta Insaat,9468137.97,0,hayir,Ozel isveren,gecerli
+OZL-2025-08,2025-09-03,Eta Taahhut,8670512.08,0,hayir,Ozel isveren,gecerli
+OZL-2025-09,2025-10-03,Delta Muhendislik,8749951.15,0,hayir,Ozel isveren,gecerli
+OZL-2025-09,2025-10-03,Epsilon Yapi,8162145.82,0,hayir,Ozel isveren,gecerli
+OZL-2025-09,2025-10-03,Zeta Insaat,8106833.57,1,hayir,Ozel isveren,gecerli
+OZL-2025-09,2025-10-03,Eta Taahhut,9060613.06,0,hayir,Ozel isveren,gecerli
+OZL-2025-10,2025-11-03,Delta Muhendislik,6381380.04,0,hayir,Ozel isveren,gecerli
+OZL-2025-10,2025-11-03,Epsilon Yapi,7044765.12,0,hayir,Ozel isveren,gecerli
+OZL-2025-10,2025-11-03,Zeta Insaat,5989187.14,0,hayir,Ozel isveren,gecerli
+OZL-2025-10,2025-11-03,Eta Taahhut,5607807.36,1,hayir,Ozel isveren,gecerli
+OZL-2025-K1,2025-03-20,Kappa Yapi,3997537.61,1,hayir,Ozel isveren,gecerli
+OZL-2025-K1,2025-03-20,Lambda Insaat,4158962.38,0,hayir,Ozel isveren,gecerli
+OZL-2025-K1,2025-03-20,Mu Taahhut,4669851.01,0,hayir,Ozel isveren,gecerli
+OZL-2025-K2,2025-04-20,Kappa Yapi,3047116.38,1,hayir,Ozel isveren,gecerli
+OZL-2025-K2,2025-04-20,Lambda Insaat,3121423.25,0,hayir,Ozel isveren,gecerli
+OZL-2025-K2,2025-04-20,Mu Taahhut,3886564.05,0,hayir,Ozel isveren,gecerli
+OZL-2025-K3,2025-05-20,Kappa Yapi,3792079.36,1,hayir,Ozel isveren,gecerli
+OZL-2025-K3,2025-05-20,Lambda Insaat,3931955.52,0,hayir,Ozel isveren,gecerli
+OZL-2025-K3,2025-05-20,Mu Taahhut,4409071.69,0,hayir,Ozel isveren,gecerli
+OZL-2025-K4,2025-06-20,Kappa Yapi,3381619.29,1,hayir,Ozel isveren,gecerli
+OZL-2025-K4,2025-06-20,Lambda Insaat,3583991.80,0,hayir,Ozel isveren,gecerli
+OZL-2025-K4,2025-06-20,Mu Taahhut,4246714.83,0,hayir,Ozel isveren,gecerli
+BLD-2025-C1,2025-10-10,Pi Insaat,2881946.03,0,evet,Ornek Ilce Belediyesi,cekildi
+BLD-2025-C1,2025-10-10,Rho Yapi,2971078.38,1,evet,Ornek Ilce Belediyesi,gecerli
+BLD-2025-C1,2025-10-10,Sigma Taahhut,3779675.01,0,evet,Ornek Ilce Belediyesi,gecerli
+BLD-2025-C2,2025-11-10,Pi Insaat,1951136.59,0,evet,Ornek Ilce Belediyesi,cekildi
+BLD-2025-C2,2025-11-10,Rho Yapi,2011481.02,1,evet,Ornek Ilce Belediyesi,gecerli
+BLD-2025-C2,2025-11-10,Sigma Taahhut,2502572.78,0,evet,Ornek Ilce Belediyesi,gecerli

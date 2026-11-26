@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/competition-agent/finding-v1.schema.json",
-  "title": "Rekabet risk bulgusu v1",
+  "$id": "https://example.invalid/competition-agent/finding-v1.1.schema.json",
+  "title": "Rekabet risk bulgusu v1.1",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -89,6 +89,14 @@
           "location": {
             "type": "string",
             "minLength": 1
+          },
+          "language": {
+            "type": "string",
+            "description": "Alıntının özgün dili (ör. tr, en, ru)"
+          },
+          "translation": {
+            "type": "string",
+            "description": "Alıntının çevirisi; kanıt özgün dildeki quote alanıdır"
           }
         }
       }
@@ -157,6 +165,55 @@
           "type": "string"
         }
       }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Öncelikten ayrı üç eksen; ihlal olasılığı yüzdesi değildir",
+      "properties": {
+        "impact": {
+          "enum": [
+            "Yüksek",
+            "Orta",
+            "Düşük"
+          ],
+          "description": "Olası etki"
+        },
+        "urgency": {
+          "enum": [
+            "Yüksek",
+            "Orta",
+            "Düşük"
+          ],
+          "description": "Süren ihale, zam veya delil kaybı riski"
+        },
+        "evidence_sufficiency": {
+          "enum": [
+            "Yüksek",
+            "Orta",
+            "Düşük"
+          ],
+          "description": "Kanıtın yeterliliği"
+        }
+      }
+    },
+    "parallel_exposure": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Rekabet hukuku dışındaki paralel riskler (ör. TR-15 kamu ihalesi yasaklama, TR-16 TCK m.235)"
+    },
+    "escalation_route": {
+      "type": "string",
+      "description": "Bulgunun yönlendirileceği bağımsız hat (ör. Hukuk, Denetim Komitesi); ilgili kişinin yönetim hattı olamaz"
+    },
+    "data_screens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Bulguyu destekleyen ihale_analiz.py uyarı kimlikleri (ör. U-001)"
     }
   },
   "allOf": [
@@ -204,5 +261,6 @@
         }
       }
     }
-  ]
+  ],
+  "description": "v1 ile geriye dönük uyumludur: zorunlu alanlar değişmedi; v1.1 isteğe bağlı alanlar ekler."
 }

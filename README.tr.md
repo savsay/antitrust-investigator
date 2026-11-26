@@ -7,6 +7,8 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 - **Odaklı tarama:** Verilen konu, anahtar kelime, rakip ve proje adlarına odaklanır. Türkçe, İngilizce ve Rusça yazışmalarda çalışır.
 - **Kaynaklı değerlendirme:** Her bulgu `references/kontroller.csv` içindeki bir kontrole (FYT, IHL, PZR, BLG, IK, DKY, HD, JV, BD, DL, ALG) ve `references/kaynaklar.csv` içindeki bir hukuk kaynağına bağlanır.
 - **Güncel kalma:** Katalogda eksik ya da eski kalan bir kaynak varsa yalnız resmî sitelerden bakar. Bulduğu kaynağı "hukuk onayı yok" diye işaretler ve kataloğa eklenecek komutu hazırlar.
+- **İhale verisi taraması:** Teklif tablosunda kazanan rotasyonu, sabit fiyat farkı, olağandışı yakın teklif, hep az farkla kaybeden firma ve tekrarlanan çekilme işaretlerini kodla hesaplar. Kamu ihalesinde 4734 ve TCK m.235 paralel riskini ayrıca belirtir.
+- **Bağımsız hat ve ihbarcı koruması:** İddia üst yönetimi veya talep edenin hattını kapsıyorsa raporu onlara değil, Denetim Komitesi ya da bağımsız müşavire yönlendirir. İhbarcı kimliğini rapora koymaz.
 - **Güvenlik:** Salt okunur çalışır. Belge içindeki talimatları uygulamaz. Avukat yazışmalarını ve kişisel hesapları ayırır. Web aramalarına şirket içi bilgi koymaz.
 
 > Bu repo gerçek inceleme verisi içermez ve içermemelidir. `evals/` ve `tests/veri/` altındaki örneklerin tamamı sentetiktir.
@@ -18,16 +20,17 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 ├── .claude-plugin/marketplace.json          Claude Code marketplace tanımı
 ├── plugins/rekabet-ihlali-inceleme/
 │   ├── .claude-plugin/plugin.json           plugin bilgisi ve sürüm
-│   ├── evals/                               3 test senaryosu (17 kontrol)
+│   ├── evals/                               6 test senaryosu (33 kontrol)
 │   └── skills/rekabet-ihlali-inceleme/      ← skill'in kendisi (claude.ai'ye yüklenen klasör)
 │       ├── SKILL.md
 │       ├── scripts/rekabet_tarama.py        ön-tarama betiği
+│       ├── scripts/ihale_analiz.py          teklif verisi taraması
 │       ├── scripts/kaynak_yonet.py          kaynak ekleme / doğrulama
 │       └── references/
-│           ├── kaynaklar.csv                hukuk kaynakları kataloğu
-│           ├── kontroller.csv               140 kontrol
+│           ├── kaynaklar.csv                61 hukuk kaynağı
+│           ├── kontroller.csv               147 kontrol
 │           ├── arama_ipuclari.csv           TR/EN/RU arama ipuçları
-│           ├── bulgu_semasi.json            bulgu çıktı şeması
+│           ├── bulgu_semasi.json            bulgu çıktı şeması (v1.1)
 │           └── metinler/                    (isteğe bağlı) kaynak metinleri
 ├── tests/                                   test betiği ve sentetik örnekler
 ├── tools/paketle.py                         claude.ai zip'ini üretir
@@ -58,7 +61,26 @@ claude plugin install rekabet-ihlali-inceleme@antitrust-investigator
 
 - "Kapsam HK-2026-014: ekteki Purview export'unda 2025 Ankara Metro ihalesiyle ilgili rakip yazışmalarını incele."
 - "SharePoint'teki teklif klasörünü ihale danışıklılığı açısından tara; Rakip Yapı ve Konya projesine odaklan."
+- "İç Denetim, kapsam HK-2026-040: ekteki teklifler.csv'de son bir yılın ihale sonuçları var. Danışıklılık işareti var mı, hangi firma ve ihalelere bakalım?"
 - "Rekabet Kurumu'nun yeni hâkim durum kılavuzunu kaynak kataloğuna ekle."
+
+## Roller
+
+| Rol | Görev |
+|---|---|
+| Hukuk / Uyum (program sahibi) | Yetki, kapsam, bulgu kararı, raporun dağıtımı |
+| İç Denetim | Süreç ve kontrol bulguları, ihale verisi analizi; hukuki nitelendirme yapmaz |
+| BT / eDiscovery | Purview araması, muhafaza, dışa aktarma, hash; içerik yorumlamaz |
+| Denetim Komitesi / bağımsız müşavir | Üst yönetim veya talep edenin hattı iddia kapsamındaysa raporun muhatabı |
+| İK | Yalnız iş gücü kontrolleri için ücret ve işe alım verisi |
+
+## 90 günlük yaygınlaştırma
+
+| Gün | Adım |
+|---|---|
+| 1–30 | Kapanmış bir dosyada pilot; hukuk 50–100 mesajı etiketler ve skill'in kuyruğuyla karşılaştırılır. Roller, bağımsız hat ve dağıtım netleşir |
+| 31–60 | Kurum politikaları ve jargon (proje kodları, rakip lakapları) eklenir; C örneklem oranı ve ihale eşikleri sektöre göre ayarlanır. Her insan kararı (`doğrulandı` / `çürütüldü` / `yeterli kanıt yok`) takip tablosuna yazılır |
+| 61–90 | Canlı dosyalarda Purview dışa aktarımlarıyla kullanılır; kapanan bulgularla her ay isabet gözden geçirilir, kaynak kataloğu hukuk onayından sonra güncellenir |
 
 ## Kaynak ekleme
 
@@ -77,6 +99,7 @@ Ayrıntılar ve kontrol, ipucu ve sözlük ekleme için [CONTRIBUTING.md](CONTRI
 - Çıktılar risk göstergesidir, hukuki görüş değildir. Değerlendirme yetkili hukuk ekibine aittir.
 - Katalogdaki kaynakların hukuk onayı `Bekliyor` durumundadır.
 - Çalışan iletişiminin incelenmesi için hukuki dayanak ve aydınlatma (KVKK) kurum tarafından sağlanmalıdır.
+- İhale taraması uyarıları kanıt değil okuma önceliğidir; dar fiyat bandı olan sektörlerde eşikler düşürülmelidir.
 - Ön-tarama betiği sentetik örneklerle test edilmiştir. Gerçek verideki isabet oranı, hukukça etiketlenmiş örneklerle ayrıca ölçülmelidir.
 
 ## Lisans

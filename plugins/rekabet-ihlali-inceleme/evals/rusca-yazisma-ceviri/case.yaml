@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: rusca-yazisma-ceviri
+expected_outcome: |
+  Rusça müşteri/bölge paylaşımı yazışması risk_signal olarak raporlanır. Kanıt alıntısı Rusça özgün
+  metinden birebir verilir, Türkçe çeviri ayrı gösterilir (MT-25). Kazakistan için uygulanacak hukukun
+  paket dışında kaldığı belirtilir; gerekiyorsa resmî kaynak önerisi "hukuk onayı yok" olarak işaretlenir.
+  Rusça eğitim maili risk_signal sayılmaz.
+context:
+  scaffold_script: place-files.sh

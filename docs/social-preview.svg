@@ -34,9 +34,9 @@
       <rect x="80" y="404" width="190" height="48" rx="24" fill="#f2b84b"/>
       <text x="175" y="436" text-anchor="middle" fill="#0f1b2d">Claude skill</text>
       <rect x="286" y="404" width="170" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
-      <text x="371" y="436" text-anchor="middle" fill="#ffffff">140 controls</text>
+      <text x="371" y="436" text-anchor="middle" fill="#ffffff">145+ controls</text>
       <rect x="472" y="404" width="200" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
-      <text x="572" y="436" text-anchor="middle" fill="#ffffff">50 legal sources</text>
+      <text x="572" y="436" text-anchor="middle" fill="#ffffff">60+ legal sources</text>
       <rect x="688" y="404" width="150" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
       <text x="763" y="436" text-anchor="middle" fill="#ffffff">TR · EN · RU</text>
     </g>

@@ -8,6 +8,7 @@ PLUGIN = os.path.join(KOK, "plugins", AD)
 SKILL = os.path.join(PLUGIN, "skills", AD)
 sys.path.insert(0, os.path.join(SKILL, "scripts"))
 import rekabet_tarama as R  # noqa: E402
+import ihale_analiz as IA  # noqa: E402
 
 basarisiz = []
 
@@ -82,6 +83,57 @@ def _():
     h = R.tara(t)
     assert h and h[0]["seviye"] == "A"
     assert t[h[0]["start_char"]:h[0]["end_char"]].strip().startswith("Merhaba")
+
+
+@test("ihale_analiz: sentetik halka yakalanir, rekabetci grup temiz kalir")
+def _():
+    ih = IA.oku(os.path.join(KOK, "tests", "veri", "ihale_ornek.csv"))
+    u = IA.tara(ih)
+    tur = {x["tarama"] for x in u}
+    assert {"ROTASYON", "SABIT_FARK", "HEP_KAYBEDEN", "CEKILME"} <= tur, tur
+    halka = {"Alfa Yapi", "Beta Insaat", "Gama Taahhut"}
+    rot = [x for x in u if x["tarama"] == "ROTASYON"]
+    assert rot and set(rot[0]["firmalar"].split("; ")) == halka
+    assert rot[0]["kamu_ihalesi"] == "evet", "kamu ihalesi isareti (IHL-09) kayboldu"
+    rakip = {"Delta Muhendislik", "Epsilon Yapi", "Zeta Insaat", "Eta Taahhut"}
+    yanlis = [x for x in u if set(x["firmalar"].split("; ")) & rakip]
+    assert not yanlis, f"rekabetci gruba yanlis alarm: {yanlis[:2]}"
+    assert all(x["alternatif_aciklama"] for x in u), "her uyari alternatif aciklama tasimali"
+
+
+@test("ihale_analiz: rastgele rekabetci pazarlarda yanlis alarm sinirli")
+def _():
+    import random
+    alarm = 0
+    for tohum in range(200):
+        rnd = random.Random(tohum); ih = {}
+        for i in range(10):
+            taban = rnd.uniform(5e6, 9e6)
+            t = {f"F{j}": taban * rnd.uniform(0.85, 1.20) for j in range(4)}
+            k = min(t, key=t.get)
+            ih[f"T{i:02d}"] = {"tarih": f"2025-{i:02d}", "kamu": False, "idare": "",
+                              "teklifler": [{"firma": f, "teklif": v, "kazanan": f == k, "gecerli": True}
+                                            for f, v in t.items()]}
+        alarm += bool(IA.tara(ih))
+    assert alarm / 200 <= 0.12, f"yanlis alarm orani {alarm / 200:.2f}"
+
+
+@test("ihale_analiz: Turkce ve Ingilizce sayi bicimleri")
+def _():
+    assert IA.sayi("1.234.567,89") == 1234567.89
+    assert IA.sayi("1,234,567.89") == 1234567.89
+    assert IA.sayi("1234567,5") == 1234567.5
+
+
+@test("bulgu semasi v1.1 geriye donuk uyumlu")
+def _():
+    d = json.load(open(os.path.join(SKILL, "references", "bulgu_semasi.json"), encoding="utf-8"))
+    gerekli = ["finding_id", "finding_type", "jurisdictions", "control_ids", "summary", "priority", "evidence",
+               "legal_references", "missing_facts", "alternative_explanations", "human_review_required",
+               "next_action", "versions"]
+    assert d["required"] == gerekli, "zorunlu alanlar degismemeli"
+    for alan in ("assessment", "parallel_exposure", "escalation_route", "data_screens"):
+        assert alan in d["properties"] and alan not in d["required"], alan
 
 
 print()

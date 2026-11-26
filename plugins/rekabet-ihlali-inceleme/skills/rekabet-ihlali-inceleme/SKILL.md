@@ -1,6 +1,6 @@
 ---
 name: rekabet-ihlali-inceleme
-description: Kurumsal ortamda rekabet hukuku (antitröst) riski için e-posta, Teams/sohbet, SharePoint/OneDrive, dosya sunucusu ve belge kümelerini yetkili kapsamda tarayan; verilen konu ve anahtar kelimelere odaklanan; kullanıcının eklediği rekabet kaynak paketinden (4054 sayılı Kanun, Rekabet Kurumu kılavuzları, AB/ABD/UK/OECD rehberleri, kontrol listeleri) beslenen ve kaynak eksik ya da eski kaldığında resmî sitelerden güncel bilgiyi çeken inceleme skill'i. Kartel, fiyat tespiti, ihale danışıklılığı (bid rigging), pazar veya müşteri paylaşımı, rakiple hassas bilgi değişimi, ücret tespiti ve çalışan ayartmama (no-poach), yeniden satış fiyatı, hâkim durum, gun-jumping, iç soruşturma, e-discovery, Purview araması ve Rekabet Kurulu yerinde incelemesine hazırlık isteklerinde kullan; kullanıcı rekabet kelimesini söylemese de rakiple yazışma veya teklif koordinasyonu incelenecekse ve rekabet kaynak kataloğuna yeni kılavuz/karar eklenecekse de kullan. Risk göstergesi üretir, nihai ihlal hükmü vermez.
+description: Kurumsal ortamda rekabet hukuku (antitröst) riski için e-posta, Teams/sohbet, SharePoint/OneDrive, dosya sunucusu ve belge kümelerini yetkili kapsamda tarayan; verilen konu ve anahtar kelimelere odaklanan; kullanıcının eklediği rekabet kaynak paketinden (4054 sayılı Kanun, Rekabet Kurumu kılavuzları, AB/ABD/UK/OECD rehberleri, kontrol listeleri) beslenen ve kaynak eksik ya da eski kaldığında resmî sitelerden güncel bilgiyi çeken inceleme skill'i. Kartel, fiyat tespiti, ihale danışıklılığı (bid rigging, teklif verisi analizi), pazar veya müşteri paylaşımı, rakiple hassas bilgi değişimi, ücret tespiti ve çalışan ayartmama (no-poach), yeniden satış fiyatı, hâkim durum, gun-jumping, iç soruşturma, e-discovery, Purview araması ve Rekabet Kurulu yerinde incelemesine hazırlık isteklerinde kullan; kullanıcı rekabet kelimesini söylemese de rakiple yazışma veya teklif koordinasyonu incelenecekse ve rekabet kaynak kataloğuna yeni kılavuz/karar eklenecekse de kullan. Risk göstergesi üretir, nihai ihlal hükmü vermez.
 ---
 
 # Rekabet İhlali İnceleme
@@ -17,6 +17,8 @@ Neden böyle sınırlı: bir mesajdaki ifade tek başına ihlal değildir. Taraf
 - **Alıntı birebir ve doğrulanmış olmalı.** Her kanıt alıntısı kaynak metinde aynen geçmeli; ofsetleri betikle doğrula (bölüm 8). Doğrulanamayan alıntıyla bulgu yayımlama.
 - **Avukat yazışmaları ayrı yoldan gider.** Bağımsız avukatla yazışma olabilecek belgeleri içerik analizine sokma; `access_restricted` olarak işaretle. Etiketten koruma sonucu da çıkarma — karar hukuk ekibinindir (DL-04, HM-12).
 - **Ölçülülük (KVKK).** Yalnız kapsamda belirtilen kişi, tarih, sistem ve konuya bak. Kapsam dışı özel yaşam, sağlık vb. içerik görürsen özetleme, raporlama; sadece "kapsam dışı kişisel içerik atlandı" diye say.
+- **Bağımsız raporlama hattı.** İddia üst yönetimi, talep edenin kendisini veya onun yönetim hattını kapsıyorsa bulguyu o kişiye veya onun hattına raporlama; Denetim Komitesi / bağımsız hukuk müşaviri hattını öner ve raporun başına yaz (OP-17).
+- **İhbarcıyı koru.** İhbarcı kimliğini, kimliği ele verecek ayrıntıları (iç yazışma kopyası, tarih-saat eşleşmesi) rapora koyma; yalnız "ihbar kaynaklı" de. Soruşturma sonrası ihbarcıya yönelik görev, değerlendirme veya erişim değişikliklerinin izlenmesini öner (OP-18).
 - **"Gösterge yok" uygunluk onayı değildir.** Yalnız incelenen parça için geçerlidir. İşlenemeyen, şifreli, OCR gerektiren dosyalar "temiz" sayılmaz; ayrı listelenir.
 
 ## 2. Kapsam kapısı — içeriğe dokunmadan önce
@@ -34,6 +36,18 @@ Neden böyle sınırlı: bir mesajdaki ifade tek başına ihlal değildir. Taraf
 | Sistemler | Exchange/Outlook, Teams, SharePoint siteleri, dosya sunucusu yolları |
 | Konular ve terimler | Kullanıcının anahtar kelimeleri, rakip adları, alan adları, proje kodları |
 
+**Roller.** İncelemede kimin ne yaptığını raporun yöntem bölümüne yaz:
+
+| Rol | Görev | Sınır |
+|---|---|---|
+| Hukuk / Uyum (program sahibi) | Yetki, kapsam, bulgu kararı, dağıtım | Nihai değerlendirme yalnız burada |
+| İç Denetim | Süreç ve kontrol bulguları, ihale verisi analizi | Hukuki nitelendirme yapmaz |
+| BT / eDiscovery uzmanı | Purview sorgusu, muhafaza, dışa aktarma, hash | İçerik yorumlamaz |
+| Denetim Komitesi / bağımsız müşavir | Üst yönetim veya talep edenin hattı iddia kapsamındaysa raporun muhatabı | OP-17 |
+| İK | Yalnız iş gücü kontrolleri (IK-01…07) için ücret/işe alım verisi | Disiplin kararı ayrı süreçtir |
+
+**Ayarlar.** Kullanıcı aksini söylemezse şu varsayılanları kullan ve raporda göster: dil TR/EN (RU yalnız istenirse); C seviyesinden okunan rastgele örneklem %10 (en az 20 satır); rapor Claude dokümanı + .docx; ihale taraması eşikleri `ihale_analiz.py` varsayılanları (bölüm 5). Değiştirilen her ayarı "Kapsam ve yöntem" bölümüne yaz.
+
 Yetki beyanı yoksa çalışan iletişim **içeriğini** inceleme; yine de arama planını, Purview sorgusunu ve kaynak/kontrol eşlemesini hazırlayabilirsin. Teknik erişimin olması (ör. yönetici hesabı) hukuki yetki sayılmaz (HM-06).
 
 ## 3. Bilgi tabanı: önce kullanıcının kaynakları, sonra web
@@ -41,7 +55,7 @@ Yetki beyanı yoksa çalışan iletişim **içeriğini** inceleme; yine de arama
 Hukuk bilgisini şu sırayla kullan. "Skill klasörü", bu SKILL.md dosyasının bulunduğu klasördür.
 
 1. **Kullanıcının eklediği kaynak paketi.** Konuşmaya eklenmiş dosyalarda, proje bilgisinde, bağlı klasörlerde veya SharePoint'te şunları ara: `Rekabet_AI_Agent_Paketi` (zip veya klasör), `Kaynak_Envanteri.csv`, `Kontrol_Katalogu.csv|json`, `Arama_Ipuclari_TR_EN_RU.csv`, `Bulgu_Semasi.json`, `02_Makine_Okunur_Metinler/*.txt`. Kullanıcı bir paket verdiyse o, skill'in kendi kataloğundan önce gelir (kuruma özel ve daha yeni olabilir). Madde metni gerekiyorsa `02_Makine_Okunur_Metinler/<ID>.txt` içinde grep ile ara, sayfa bilgisini `<ID>.pages.json`'dan al. Zip'i yalnız ayrı, boş bir klasöre aç.
-2. **Skill klasöründeki `references/`.** Skill ile birlikte gelen katalog: `kaynaklar.csv` (tüm kaynaklar; `Kaynak_Envanteri.csv` ile aynı sütunlar), `kontroller.csv` (140 kontrol; risk göstergesi, gerekli kanıt, karşı kontrol, kaynak kimlikleri), `arama_ipuclari.csv`, `bulgu_semasi.json`. Dosyaları baştan sona okuma; ihtiyacın olan satırları grep veya csv ile çek. Varsa `references/metinler/<ID>.txt` kaynak metnidir.
+2. **Skill klasöründeki `references/`.** Skill ile birlikte gelen katalog: `kaynaklar.csv` (tüm kaynaklar; `Kaynak_Envanteri.csv` ile aynı sütunlar), `kontroller.csv` (147 kontrol; risk göstergesi, gerekli kanıt, karşı kontrol, kaynak kimlikleri), `arama_ipuclari.csv`, `bulgu_semasi.json`. Dosyaları baştan sona okuma; ihtiyacın olan satırları grep veya csv ile çek. Varsa `references/metinler/<ID>.txt` kaynak metnidir.
 3. **Bu SKILL.md'deki çekirdek tablolar** (bölüm 6, 7 ve 10). Yalnız yukarıdaki dosyalar yoksa (ör. skill tek dosya olarak kurulduysa) bunlarla çalış.
 4. **Web — kendini güncelleme.** Şu durumlarda resmî kaynaktan güncel bilgi çek:
    - Paket kaydında "tam metin indirilemedi" / `ERISIM_NOTU` var (TR-05, TR-07, TR-11, TR-12, TR-13, EU-11, EU-12, DP-03, DP-04).
@@ -49,7 +63,7 @@ Hukuk bilgisini şu sırayla kullan. "Skill klasörü", bu SKILL.md dosyasının
    - Güncel Rekabet Kurulu kararı, yeni kılavuz veya sürüm teyidi gerekiyor (paket tarihinden 6 aydan eski kaynak, "Hukuk onayı: Bekliyor").
    - Kullanıcı açıkça istiyor.
 
-   Nasıl: WebSearch/WebFetch'i yalnız resmî alan adlarıyla kullan: rekabet.gov.tr, mevzuat.gov.tr, resmigazete.gov.tr, kvkk.gov.tr, competition-policy.ec.europa.eu, eur-lex.europa.eu, curia.europa.eu, justice.gov/atr, ftc.gov, gov.uk (CMA), oecd.org, fas.gov.ru (Rusya FAS). Her web kaynağı için URL, erişim tarihi, belge türü (kanun/kılavuz/karar/duyuru/taslak) ve yürürlük durumunu kaydet; raporda **"web — hukuk onayı yok"** etiketiyle göster. Paketteki onaylı kaynakla çelişirse sessizce değiştirme, farkı raporla. Soruşturma duyurusu veya tarafın iddiası kesin ihlal etiketi değildir. Taslak ve geri çekilmiş metinleri güncel kural gibi sunma.
+   Nasıl: WebSearch/WebFetch'i yalnız resmî alan adlarıyla kullan: rekabet.gov.tr, mevzuat.gov.tr, resmigazete.gov.tr, kvkk.gov.tr, ekap.kik.gov.tr, competition-policy.ec.europa.eu, eur-lex.europa.eu, curia.europa.eu, justice.gov/atr, ftc.gov, gov.uk (CMA), oecd.org, worldbank.org, fas.gov.ru (Rusya FAS). Her web kaynağı için URL, erişim tarihi, belge türü (kanun/kılavuz/karar/duyuru/taslak) ve yürürlük durumunu kaydet; raporda **"web — hukuk onayı yok"** etiketiyle göster. Paketteki onaylı kaynakla çelişirse sessizce değiştirme, farkı raporla. Soruşturma duyurusu veya tarafın iddiası kesin ihlal etiketi değildir. Taslak ve geri çekilmiş metinleri güncel kural gibi sunma.
 
    Çalışma sonunda **"Kaynak güncelleme önerileri"** bölümü üret. Her öneri, kataloğa doğrudan eklenebilecek bir komut olsun (bölüm 13):
    ```
@@ -57,6 +71,8 @@ Hukuk bilgisini şu sırayla kullan. "Skill klasörü", bu SKILL.md dosyasının
      --surum "<tarih / karar no>" --tur "<Kanun|Kılavuz|Karar|Duyuru|Taslak>" --amac "<hangi risk için>" \
      --url "<resmî URL>" --kontroller "HD-03,DKY-05" --not "web'den <GG.AA.YYYY> tarihinde alındı"
    ```
+   **Kurum içi politika katmanı.** Kullanıcı şirket rekabet uyum politikasını, dernek toplantı kuralını veya ihale prosedürünü verdiyse onu ayrı bir katman olarak kullan: olay tarihinde yürürlükte olan sürümü bul (sürüm/onay tarihi), grup politikası yerel hukukun önüne geçmez, politikaya aykırılık tek başına rekabet ihlali değildir (HM-21).
+
    Skill çalışırken kendi dosyalarını kalıcı olarak değiştiremez; öneri, bakımcı onu kataloğa ekleyip yeni sürümü yayımladığında kalıcı olur.
 
 ## 4. Veri kaynaklarına erişim
@@ -88,7 +104,11 @@ Her belge için envanter tut: document_id, kaynak yol/URI, sha256, boyut, deği�
 2. **Terim setini kur.** Kullanıcının anahtar kelimeleri + rakip adları ve alan adları + proje/ihale kodları + bölüm 7'deki kavram sözlüğü (TR/EN/RU, ASCII varyantları, kök + joker).
 3. **Birinci geçiş — geniş tarama (yakalama).** Bölüm 11'deki betiği çalıştır. Betik ifade listesi değil **kavram eş-zamanlılığı** arar: tema (fiyat, ihale, pazar, arz, iş gücü, dikey, hâkim durum) + taraf (rakip, dernek, konsorsiyum, diğer işveren) + mutabakat/gizli bilgi/gizleme. Kullanıcının terimleri her zaman A seviyesine çıkar.
 4. **İkinci geçiş — bağlamsal okuma (isabet).** Sırayla ERISIM → A → B satırlarını oku; C satırlarından yalnız kullanıcının konusuna yakın olanları ve rastgele bir örneklemi oku. Aynı belgenin örtüşen satırlarını birleştir. Her isabette tüm mesaj zincirini ve ekleri aç.
-5. **Yapısal / sayısal kontroller** (veri varsa): ihale sonuçlarında kazanan rotasyonu (IHL-03), teklifler arası sabit yüzde farkı (IHL-07), farklı firmaların tekliflerinde aynı yazar/oluşturma metadatası veya aynı yazım hatası (IHL-05), kaybedene sonradan alt yüklenicilik (IHL-04). Fiyat korelasyonu tek başına kartel kanıtı değildir (MT-24).
+5. **Yapısal / sayısal kontroller** (veri varsa). Sayıları kafadan hesaplama; kodla hesapla (MT-26). Teklif tablosu (ihale_id, tarih, firma, teklif, kazanan; isteğe bağlı kamu, idare, durum) varsa:
+   ```
+   python3 scripts/ihale_analiz.py teklifler.csv --cikti ihale_uyarilari.csv
+   ```
+   Betik beş tarama yapar: kazanan rotasyonu (IHL-03), kaybedenle kazanan arasında sabit yüzde farkı (IHL-07), aynı ihalede olağandışı yakın/aynı teklifler (IHL-05), hep az farkla kaybeden destek-teklif profili (IHL-01), çekilmenin ardından hep aynı firmanın kazanması (IHL-02). Varsayılan eşikler 500 sentetik rekabetçi pazarda %7–9 yanlış alarm ve sentetik halkada %100 yakalama verdi; fiyat bandı dar sektörlerde (asfalt, beton) yanlış alarm artar, `--yakin-teklif` ve `--kaybeden-fark` değerlerini düşür. Her uyarı yalnız bir okuma önceliğidir: uyarı veren ihalelerin yazışmalarını ve teklif belgelerini oku; belgeyle desteklenmeyen uyarıyla bulgu açma (IHL-10, MT-24). Ayrıca belge düzeyinde bak: farklı firmaların tekliflerinde aynı yazar/oluşturma metadatası veya aynı yazım hatası (IHL-05), kaybedene sonradan alt yüklenicilik (IHL-04).
 6. **Gizleme izleri.** "Telefonla konuşalım", "maile yazma", kişisel hesaba geçiş, inceleme duyurusundan sonra silme talebi — tek başına ihlal değil, ama ilgili konuşmanın önceliğini yükseltir.
 
 ## 6. Rekabet risk kontrolleri (çekirdek katalog)
@@ -96,7 +116,7 @@ Her belge için envanter tut: document_id, kaynak yol/URI, sha256, boyut, deği�
 Paketteki `Kontrol_Katalogu` varsa her kontrolün risk göstergesi, gerekli kanıtı ve karşı kontrolü oradadır; onu kullan. Yoksa bu özet:
 
 - **Fiyat ve ticari koşullar (TR-01 m.4, EU-01, US-02):** FYT-01 rakiple gelecekteki satış fiyatında mutabakat · FYT-02 indirim/asgari marjı birlikte belirleme · FYT-03 vade/ek ücret/fiyat formülü koordinasyonu · FYT-04 rakip alıcılarla alım fiyatı sabitleme · FYT-05 uymayana misilleme · FYT-06 zam oranını karşılıklı teyit.
-- **İhale danışıklılığı (TR-01, OECD-01/02, US-02, UK-04):** IHL-01 göstermelik (cover) teklif talebi · IHL-02 rakipten çekilme/teklif vermeme · IHL-03 sırayla kazanma · IHL-04 kaybedene telafi işi · IHL-05 tekliflerde aynı hata/metadata · IHL-06 rakibin açıklanmamış teklifini önceden bilme · IHL-07 açıklanamayan sabit fiyat farkları · IHL-08 bir kişinin rakip teklifleri de hazırlaması.
+- **İhale danışıklılığı (TR-01, OECD-01/02, US-02, UK-04):** IHL-01 göstermelik (cover) teklif talebi · IHL-02 rakipten çekilme/teklif vermeme · IHL-03 sırayla kazanma · IHL-04 kaybedene telafi işi · IHL-05 tekliflerde aynı hata/metadata · IHL-06 rakibin açıklanmamış teklifini önceden bilme · IHL-07 açıklanamayan sabit fiyat farkları · IHL-08 bir kişinin rakip teklifleri de hazırlaması · IHL-09 kamu ihalesinde paralel risk: 4734 m.17/58 yasaklama ve TCK m.235 ihaleye fesat karıştırma (TR-15, TR-16) — bulgu `Acil`, hemen hukuka · IHL-10 istatistiksel teklif göstergesinin belgeyle desteklenmesi.
 - **Pazar, müşteri, kapasite paylaşımı:** PZR-01 bölge/ülke paylaşımı · PZR-02 müşteri bırakma · PZR-03 proje/paket bölüşme · PZR-04 üretim/kapasite kısma · PZR-05 ortak boykot.
 - **Hassas bilgi değişimi (TR-02, EU-02, EU-10 Eturas):** BLG-01 gelecek fiyat/teklif stratejisi paylaşımı · BLG-02 şirket bazında maliyet/marj/kapasite · BLG-03 dernek/danışman üzerinden aktarım · BLG-04 tedarikçi/müşteri aracılığıyla (hub-and-spoke) · BLG-05 istenmeyen bilgiye verilen tepki (kabul, kullanma, itiraz etmeme) · BLG-06 geri çıkarılabilir veri havuzu · BLG-07 toplantıda gündem dışı rekabetçi konu.
 - **İş gücü piyasaları (TR-04, US-03, UK-02):** IK-01 ücret/zam tavanı birlikte belirleme · IK-02 karşılıklı çalışan almama · IK-03 işe alımı eski işverenin iznine bağlama · IK-04 ücret/yan hak bilgisi paylaşımı · IK-05 sektörler arası ortak ücret politikası · IK-06 proje sözleşmesinde orantısız işe alım yasağı · IK-07 İK danışmanı/platform aracılığıyla koordinasyon.
@@ -107,7 +127,7 @@ Paketteki `Kontrol_Katalogu` varsa her kontrolün risk göstergesi, gerekli kan�
 - **Dijital kayıt ve inceleme (TR-07, TR-13):** DL-01 muhafaza sonrası silme · DL-02 erişim engelleme/yanlış bilgi · DL-03 belge bütünlüğü/hash · DL-04 avukat yazışması statüsü.
 - **Algoritma ve platform:** ALG-01 ortak fiyatlama hizmetinin rakip verisini birleştirmesi · ALG-02 algoritmanın ortak fiyat veya yaptırım uygulaması.
 
-Süreç kontrolleri (VT-01…20 veri toplama, HM-01…20 hukuk/mahremiyet, MT-01…24 model/test, OP-01…16 operasyon) incelemenin nasıl yürütüleceğini denetler; raporun "Yöntem ve sınırlamalar" bölümünde ilgili olanlara atıf yap.
+Süreç kontrolleri (VT-01…20 veri toplama, HM-01…21 hukuk/mahremiyet, MT-01…26 model/test, OP-01…18 operasyon) incelemenin nasıl yürütüleceğini denetler; raporun "Yöntem ve sınırlamalar" bölümünde ilgili olanlara atıf yap.
 
 ## 7. Kavram sözlüğü ve bağlam işaretleri
 
@@ -129,7 +149,8 @@ Her isabet için:
 1. **Kim, kime, ne dedi?** Gönderen, alıcılar, tarih (yerel ve UTC), konuşmanın önceki ve sonraki mesajları. İfadenin yönünü koru: aktarılan söz, soru, ret, alay, eğitim alıntısı ayrı şeylerdir (MT-06, MT-07, MT-11).
 2. **Taraf ilişkisi.** Rakip mi, tedarikçi/müşteri mi, konsorsiyum ortağı mı, aynı grup/ekonomik bütünlük mü? Belgeyle desteklenmeyen ilişkiyi varsayma; "taraf ilişkisi doğrulanmalı" diye eksik olgulara yaz.
 3. **Meşru açıklamalar.** Gerçek konsorsiyum/JV ihtiyacı, ortak alım, kamuya açık veya geçmiş/toplulaştırılmış veri, düzenleyici zorunluluk, grup içi fiyatlama, alt yüklenicilik. Varsa yaz; istisna iddiası otomatik aklama değildir (MT-08).
-4. **Sınıflandır** (Bulgu_Semasi v1):
+   **Yabancı dilde yazışma:** alıntıyı özgün dilde ver (`quote`), çeviriyi ayrı alanda (`translation`) göster; çeviriden alıntı yapma, çeviriye dayanarak ofset verme (MT-25).
+4. **Sınıflandır** (Bulgu_Semasi v1.1; v1 ile uyumlu):
    - `risk_signal` — bağlamda hukuk incelemesine değer gösterge; en az bir doğrulanmış alıntı ve hukuk kaynağı zorunlu.
    - `insufficient_context` — gösterge var ama olgu eksik; eksikleri listele.
    - `no_signal_in_excerpt` — bu parçada gösterge yok (yalnız bu parça için).
@@ -139,6 +160,7 @@ Her isabet için:
    - *Yüksek:* rakiple açık mutabakat (fiyat, teklif, pazar, ücret, çalışan almama) veya rakibin açıklanmamış teklifine sahip olma.
    - *Orta:* hassas bilgi akışı var, mutabakat belirsiz; dikey kısıt; JV bilgi taşması.
    - *Düşük:* belirsiz veya tek taraflı ifade, zayıf bağlam.
+   Önceliğin yanında üç ekseni ayrı ayrı yaz (`assessment`): **etki** (pazar, tutar, kamu ihalesi mi), **aciliyet** (süren ihale, delil kaybı), **kanıt yeterliliği** (doğrudan alıntı mı, dolaylı mı). Kamu ihalesi söz konusuysa rekabet dışı paralel riskleri `parallel_exposure` alanına yaz ve bulguyu `Acil` işaretle (IHL-09); hukuki nitelendirmeyi hukuka bırak.
 6. **Alıntıyı doğrula** — betikteki `tara()` çıktısındaki `start_char`/`end_char` ofsetleri katlanmamış orijinal metne aittir. Kendi seçtiğin alıntıyı şu kontrolle doğrula:
    ```python
    assert metin[start:end] == alinti, "alıntı kaynakla eşleşmiyor — bulgu yayımlanmaz"
@@ -156,8 +178,8 @@ Kullanıcı başka bir biçim istemediyse:
    - Erişim kısıtlı ve işlenemeyen kayıtlar.
    - Kaynak güncelleme önerileri (bölüm 3).
    - Sınırlamalar ve beyan: "Bu rapor risk göstergesi içerir; ihlal tespiti değildir. Değerlendirme yetkili hukuk ekibine aittir."
-2. **bulgular.json** — her bulgu Bulgu_Semasi v1 alanlarıyla: finding_id, finding_type, jurisdictions, control_ids, summary, priority, evidence[document_id, quote, start_char, end_char, location], legal_references[source_id, section, version], missing_facts, alternative_explanations, human_review_required (risk_signal ve access_restricted için true), next_action, versions{model, prompt, rules, corpus}.
-3. İstenirse **takip tablosu** (bulgu başına satır, hukukçunun durum/karar sütunlarıyla).
+2. **bulgular.json** — her bulgu Bulgu_Semasi v1.1 alanlarıyla: finding_id, finding_type, jurisdictions, control_ids, summary, priority, evidence[document_id, quote, start_char, end_char, location], legal_references[source_id, section, version], missing_facts, alternative_explanations, human_review_required (risk_signal ve access_restricted için true), next_action, versions{model, prompt, rules, corpus}; varsa isteğe bağlı assessment{impact, urgency, evidence_sufficiency}, parallel_exposure, escalation_route, data_screens (ihale_analiz uyarı kimlikleri) ve kanıtta language/translation.
+3. İstenirse **takip tablosu** (bulgu başına satır). Sonuç sütunu boş bırakılır ve yalnız insan doldurur: `doğrulandı` / `çürütüldü` / `yeterli kanıt yok` / `hukuka devredildi`; ayrıca karar veren rol, karar tarihi ve ilgili düzeltici aksiyon. Kapatılan bulgular eşik ve sözlük ayarına geri bildirim olarak kullanılır.
 
 Raporu kendiliğinden "avukat-müvekkil gizliliği" ibaresiyle etiketleme; gizlilik ibaresini hukuk ekibinin talimatına göre ekle. Raporu ticari ekiplere dağıtma önerisinde bulunma; dağıtımı hukuk belirler (OP-03, OP-13).
 
@@ -191,6 +213,14 @@ Tam ve güncel liste `references/kaynaklar.csv` dosyasındadır; bu tablo yalnı
 | UK-02 | CMA Competing for Talent | 09.09.2025 | https://www.gov.uk/government/publications |
 | UK-04/05 | CMA Supply of construction services (ihale kararı) | 2023 / 2024 | https://www.gov.uk/cma-cases/supply-of-construction-services |
 | OECD-01/02 | Kamu ihalelerinde danışıklılıkla mücadele rehberi ve tavsiyesi | 2025 / 2023 | https://www.oecd.org |
+| TR-15 | 4734 sayılı Kamu İhale Kanunu (m.5, 17, 58) | konsolide | https://www.mevzuat.gov.tr/MevzuatMetin/1.5.4734.pdf |
+| TR-16 | 5237 sayılı TCK (m.235–236 ihaleye fesat karıştırma) | konsolide | https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5237.pdf |
+| TR-17 | Aktif İşbirliği (pişmanlık) Yönetmeliği | RG 16.12.2023 | https://www.rekabet.gov.tr/tr/Sayfa/Mevzuat/yonetmelikler |
+| TR-18 | Uzlaşma Yönetmeliği | RG 15.07.2021 | https://www.rekabet.gov.tr/tr/Sayfa/Mevzuat/yonetmelikler |
+| TR-19 | İdari Para Cezaları Yönetmeliği | RG 27.12.2024 | https://www.rekabet.gov.tr/tr/Sayfa/Mevzuat/yonetmelikler |
+| INT-01 | World Bank Fraud and Corruption Awareness Handbook (ihale kırmızı bayrakları) | 2013 | https://openknowledge.worldbank.org |
+| US-08 | DOJ Evaluation of Corporate Compliance Programs | 09.2024 | https://www.justice.gov/criminal/criminal-fraud/page/file/937501/dl |
+| STD-01…04 | IIA Global Internal Audit Standards; ISO 37301, 37002, 37008 | 2021–2024 | https://www.theiia.org · https://www.iso.org |
 | DP-01 | 6698 sayılı KVKK | konsolide | https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6698.pdf |
 | DP-02 | Çalışan iletişim kanallarının denetlenmesi, 2026/2035 İlke Kararı | 16.09.2026 | https://www.resmigazete.gov.tr/eskiler/2026/10/20261008-6.pdf |
 | DP-03 | KVKK kurumsal e-posta incelemesi kararı 2023/86 | 19.01.2023 | https://kvkk.gov.tr/Icerik/7593/2023-86 |
@@ -373,7 +403,7 @@ if __name__ == "__main__":
 
 ## 12. Yapılmayacaklar (kısa liste)
 
-İhlal/suç/ceza/disiplin hükmü vermek · kişiler hakkında yaptırım önermek · rakibe, çalışana veya otoriteye kendiliğinden mesaj göndermek · pişmanlık (leniency) başvurusu kararı vermek · belge silmek veya değiştirmek · yetki dışı klasöre, kişisel hesaba veya başka şirketin verisine bakmak · onaysız web kaynağını bağlayıcı kural gibi sunmak · doğrulanmamış alıntı veya uydurma karar atfı kullanmak. Bu kararlar yetkili hukuk ekibine aittir; skill onlara düzenli, kaynaklı ve doğrulanabilir bir dosya hazırlar.
+İhlal/suç/ceza/disiplin hükmü vermek · kişiler hakkında yaptırım önermek · rakibe, çalışana veya otoriteye kendiliğinden mesaj göndermek · pişmanlık (leniency) veya uzlaşma başvurusu kararı vermek (TR-17, TR-18 yalnız hukuka bilgi için) · ceza tutarı hesaplamak (TR-19) · belge silmek veya değiştirmek · yetki dışı klasöre, kişisel hesaba veya başka şirketin verisine bakmak · onaysız web kaynağını bağlayıcı kural gibi sunmak · doğrulanmamış alıntı veya uydurma karar atfı kullanmak. Bu kararlar yetkili hukuk ekibine aittir; skill onlara düzenli, kaynaklı ve doğrulanabilir bir dosya hazırlar.
 
 ## 13. Kaynak kütüphanesini genişletme
 
