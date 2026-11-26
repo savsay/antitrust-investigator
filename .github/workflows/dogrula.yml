@@ -5,6 +5,8 @@ on:
     branches: [main]
     tags: ["v*"]
   pull_request:
+  release:
+    types: [published]
 
 jobs:
   test:
@@ -26,7 +28,7 @@ jobs:
           path: dist/rekabet-ihlali-inceleme.zip
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
     permissions:
@@ -40,4 +42,10 @@ jobs:
       - name: Surum yayini
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ github.ref_name }}" dist/rekabet-ihlali-inceleme.zip --generate-notes
+        run: |
+          TAG="${{ github.event.release.tag_name || github.ref_name }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/rekabet-ihlali-inceleme.zip --clobber
+          else
+            gh release create "$TAG" dist/rekabet-ihlali-inceleme.zip --generate-notes
+          fi
