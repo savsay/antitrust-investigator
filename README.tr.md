@@ -20,7 +20,7 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 ├── .claude-plugin/marketplace.json          Claude Code marketplace tanımı
 ├── plugins/rekabet-ihlali-inceleme/
 │   ├── .claude-plugin/plugin.json           plugin bilgisi ve sürüm
-│   ├── evals/                               6 test senaryosu (33 kontrol)
+│   ├── README.md / LICENSE                  dizin listesi için eklenti açıklaması ve lisans
 │   └── skills/rekabet-ihlali-inceleme/      ← skill'in kendisi (claude.ai'ye yüklenen klasör)
 │       ├── SKILL.md
 │       ├── scripts/rekabet_tarama.py        ön-tarama betiği
@@ -32,6 +32,7 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 │           ├── arama_ipuclari.csv           TR/EN/RU arama ipuçları
 │           ├── bulgu_semasi.json            bulgu çıktı şeması (v1.1)
 │           └── metinler/                    (isteğe bağlı) kaynak metinleri
+├── evals/                                   6 test senaryosu (33 kontrol)
 ├── tests/                                   test betiği ve sentetik örnekler
 ├── tools/paketle.py                         claude.ai zip'ini üretir
 └── .github/workflows/dogrula.yml            her PR'da test, her sürüm etiketinde zip

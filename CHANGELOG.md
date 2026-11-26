@@ -9,6 +9,7 @@
 - Bulgu şeması v1.1 (v1 ile uyumlu): isteğe bağlı `assessment`, `parallel_exposure`, `escalation_route`, `data_screens`, kanıtta `language` / `translation`.
 - 3 yeni test senaryosu (üst yönetim iddiası, teklif verisi taraması, Rusça yazışma); toplam 6 senaryo, 33 kontrol. 4 yeni birim testi.
 - README: roller, 90 günlük yaygınlaştırma planı, güncel sayılar, yol haritası.
+- Claude dizinine gönderim için: eklenti klasörüne İngilizce README, LICENSE ve 512 px ikon; `displayName` "Antitrust Investigator"; ikili test dosyaları kurulan pakete girmesin diye `evals/` repo köküne taşındı.
 
 ## 1.1.0 — 2026-11-26
 

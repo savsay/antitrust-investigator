@@ -202,7 +202,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for controls, search cues and the release
 | Phrase-list baseline (the obvious approach) | 0/24 risk signals found |
 | Mini mailbox + SharePoint folder | Cover-bid email, hidden Excel sheet with a competitor's bid, association minutes and wage-cap email ranked `A`; training email not treated as a risk; corrupt PDF listed as unprocessed; prompt-injection email ignored |
 | Bid-data screens | Synthetic 3-firm ring caught in 200/200 runs (rotation and constant gap); false alarms on 500 random competitive markets: 7% (wide price band) to 9% (narrow band); competitive group in the sample file not flagged |
-| 6 evaluation scenarios ([`evals/`](plugins/rekabet-ihlali-inceleme/evals)) | Main workflow, request without legal mandate, self-update from official sources, senior management implicated, bid-data screening, Russian correspondence with translation (33 assertions) |
+| 6 evaluation scenarios ([`evals/`](evals)) | Main workflow, request without legal mandate, self-update from official sources, senior management implicated, bid-data screening, Russian correspondence with translation (33 assertions) |
 
 CI runs the tests on every pull request and attaches the skill zip to every tagged release.
 

@@ -1,21 +1,25 @@
 {
   "name": "rekabet-ihlali-inceleme",
-  "displayName": "Rekabet İhlali İnceleme",
+  "displayName": "Antitrust Investigator",
   "version": "1.2.0",
-  "description": "Competition-law risk review for corporate email, Teams, SharePoint and file shares: sourced red flags and a lawyer-ready report. Rekabet hukuku risk incelemesi.",
+  "description": "Find bid rigging, price fixing, market sharing and no-poach red flags in corporate email, Teams, SharePoint and file shares, with exact quotes, control IDs and legal sources. Turkish, English and Russian documents.",
   "author": {
-    "name": "Savaş Saygılı"
+    "name": "Savaş Saygılı",
+    "url": "https://github.com/savsay"
   },
   "repository": "https://github.com/savsay/antitrust-investigator",
   "keywords": [
     "antitrust",
     "competition-law",
-    "rekabet",
     "bid-rigging",
     "cartel",
+    "price-fixing",
+    "no-poach",
     "ediscovery",
     "purview",
     "compliance",
+    "internal-investigation",
+    "rekabet",
     "kvkk"
   ],
   "homepage": "https://github.com/savsay/antitrust-investigator",
