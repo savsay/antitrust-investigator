@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Rekabet riski on-tarama (triage). Salt okunur; kaynak dosyalari degistirmez.
 Cikti bir okuma kuyrugudur, bulgu degildir."""
 import argparse, csv, email, hashlib, json, os, re, unicodedata
@@ -136,7 +135,7 @@ def main():
     a = ap.parse_args()
     ozel = [fold(t.strip()) for t in a.terimler.split(",") if t.strip()]
     ozel_rx = re.compile("|".join(re.escape(t) for t in ozel)) if ozel else None
-    isabet, env = [], []
+    isabet, envanter_satirlari = [], []
     for kok, _, dosyalar in os.walk(a.kok):
         for ad in sorted(dosyalar):
             p = os.path.join(kok, ad); k = {"document_id": os.path.relpath(p, a.kok), "boyut": os.path.getsize(p)}
@@ -147,14 +146,14 @@ def main():
                     isabet.append({"document_id": k["document_id"], "sha256": k["sha256"], **h})
             except Exception as ex:
                 k.update(durum=f"ISLENEMEDI: {type(ex).__name__}: {ex}"[:200])
-            env.append(k)
+            envanter_satirlari.append(k)
     sira = {"ERISIM": 0, "A": 1, "B": 2, "C": 3}
     isabet.sort(key=lambda h: (sira[h["seviye"]], h["document_id"], h["start_char"]))
-    for yol, satirlar in ((a.cikti, isabet), (a.envanter, env)):
+    for yol, satirlar in ((a.cikti, isabet), (a.envanter, envanter_satirlari)):
         alanlar = sorted({x for s in satirlar for x in s}) or ["bos"]
         with open(yol, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=alanlar); w.writeheader(); w.writerows(satirlar)
-    print(json.dumps({"dosya": len(env), "islenemeyen": sum(not str(e.get("durum", "")).startswith("islendi") for e in env),
+    print(json.dumps({"dosya": len(envanter_satirlari), "islenemeyen": sum(not str(e.get("durum", "")).startswith("islendi") for e in envanter_satirlari),
                       "isabet": {s: sum(h["seviye"] == s for h in isabet) for s in sira}}, ensure_ascii=False))
 
 if __name__ == "__main__":

@@ -39,7 +39,7 @@ def _():
 
 @test("SKILL.md icindeki betik scripts/rekabet_tarama.py ile ayni")
 def _():
-    gomulu = re.search(r"```python\n(#!/usr/bin/env python3.*?)```", SKILL_MD, re.S).group(1)
+    gomulu = re.search(r"```python\n(\"\"\"Rekabet riski.*?)```", SKILL_MD, re.S).group(1)
     dosya = open(os.path.join(SKILL, "scripts", "rekabet_tarama.py"), encoding="utf-8").read()
     assert gomulu == dosya, "iki kopya farkli; SKILL.md'deki blogu dosyayla esitleyin"
 

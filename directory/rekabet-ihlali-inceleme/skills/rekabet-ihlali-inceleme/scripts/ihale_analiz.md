@@ -3,7 +3,6 @@
 Bu dosya Claude dizini sürümünde betiğin okunabilir kopyasıdır. Aşağıdaki kodu değiştirmeden çalışma klasörüne `ihale_analiz.py` olarak yazın ve SKILL.md'deki komutla çalıştırın. Kaynak: https://github.com/savsay/antitrust-investigator/blob/main/plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/ihale_analiz.py
 
 ```python
-#!/usr/bin/env python3
 """Ihale teklif verisinde danisiklilik taramasi (OECD / Dunya Bankasi tipi gostergeler).
 
 Kullanim:

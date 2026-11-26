@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Ihale teklif verisinde danisiklilik taramasi (OECD / Dunya Bankasi tipi gostergeler).
 
 Kullanim:
