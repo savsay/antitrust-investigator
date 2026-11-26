@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b2d"/>
+      <stop offset="1" stop-color="#1d3354"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- documents + magnifier -->
+  <g transform="translate(880 150)">
+    <rect x="0" y="50" width="220" height="280" rx="16" fill="#24406a" stroke="#4f73a8" stroke-width="2"/>
+    <rect x="46" y="14" width="220" height="280" rx="16" fill="#2b4b7b" stroke="#5c82bb" stroke-width="2"/>
+    <g fill="#8fb0dc" opacity="0.8">
+      <rect x="76" y="56" width="150" height="12" rx="6"/>
+      <rect x="76" y="86" width="126" height="12" rx="6"/>
+      <rect x="76" y="116" width="158" height="12" rx="6"/>
+      <rect x="76" y="176" width="110" height="12" rx="6"/>
+      <rect x="76" y="206" width="142" height="12" rx="6"/>
+    </g>
+    <rect x="72" y="142" width="170" height="20" rx="7" fill="#f2b84b"/>
+    <circle cx="232" cy="206" r="72" fill="#f2b84b" fill-opacity="0.10" stroke="#f2b84b" stroke-width="14"/>
+    <line x1="284" y1="258" x2="348" y2="322" stroke="#f2b84b" stroke-width="20" stroke-linecap="round"/>
+  </g>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="80" y="118" font-size="26" font-weight="600" fill="#8fb0dc">savsay /</text>
+    <text x="80" y="200" font-size="72" font-weight="700" fill="#ffffff">antitrust-investigator</text>
+    <text x="80" y="262" font-size="32" fill="#c9d7ee">Find bid rigging, price fixing and no-poach</text>
+    <text x="80" y="304" font-size="32" fill="#c9d7ee">signals in corporate email and documents.</text>
+    <text x="80" y="356" font-size="24" fill="#8fb0dc">Every finding with an exact quote, a control ID and a legal source.</text>
+
+    <g font-size="22" font-weight="600">
+      <rect x="80" y="404" width="190" height="48" rx="24" fill="#f2b84b"/>
+      <text x="175" y="436" text-anchor="middle" fill="#0f1b2d">Claude skill</text>
+      <rect x="286" y="404" width="170" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+      <text x="371" y="436" text-anchor="middle" fill="#ffffff">140 controls</text>
+      <rect x="472" y="404" width="200" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+      <text x="572" y="436" text-anchor="middle" fill="#ffffff">50 legal sources</text>
+      <rect x="688" y="404" width="150" height="48" rx="24" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+      <text x="763" y="436" text-anchor="middle" fill="#ffffff">TR · EN · RU</text>
+    </g>
+
+    <line x1="80" y1="500" x2="1200" y2="500" stroke="#2f4a73" stroke-width="2"/>
+    <text x="80" y="548" font-size="22" fill="#8fb0dc">Outlook · Teams · SharePoint · OneDrive · file shares · Purview exports</text>
+    <text x="1200" y="548" font-size="22" font-weight="600" text-anchor="end" fill="#c9d7ee">MIT · Claude Code plugin</text>
+  </g>
+</svg>
