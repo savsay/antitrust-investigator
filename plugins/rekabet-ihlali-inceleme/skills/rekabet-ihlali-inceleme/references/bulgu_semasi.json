@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/competition-agent/finding-v1.schema.json",
+  "title": "Rekabet risk bulgusu v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "finding_id",
+    "finding_type",
+    "jurisdictions",
+    "control_ids",
+    "summary",
+    "priority",
+    "evidence",
+    "legal_references",
+    "missing_facts",
+    "alternative_explanations",
+    "human_review_required",
+    "next_action",
+    "versions"
+  ],
+  "properties": {
+    "finding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding_type": {
+      "enum": [
+        "risk_signal",
+        "insufficient_context",
+        "no_signal_in_excerpt",
+        "access_restricted"
+      ]
+    },
+    "jurisdictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "control_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "priority": {
+      "enum": [
+        "Acil",
+        "Yüksek",
+        "Orta",
+        "Düşük",
+        "İncelenemedi"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_id",
+          "quote",
+          "start_char",
+          "end_char",
+          "location"
+        ],
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start_char": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end_char": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "legal_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "section",
+          "version"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "section": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "missing_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "alternative_explanations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "prompt",
+        "rules",
+        "corpus"
+      ],
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "string"
+        },
+        "corpus": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "finding_type": {
+            "const": "risk_signal"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "minItems": 1
+          },
+          "legal_references": {
+            "minItems": 1
+          },
+          "human_review_required": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "finding_type": {
+            "const": "access_restricted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "maxItems": 0
+          },
+          "priority": {
+            "const": "İncelenemedi"
+          },
+          "human_review_required": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}

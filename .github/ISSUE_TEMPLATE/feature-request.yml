@@ -1,0 +1,17 @@
+name: Feature request / Özellik önerisi
+description: Suggest an improvement / Bir geliştirme önerin
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve? / Hangi sorunu çözer?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed change / Önerilen değişiklik
+  - type: markdown
+    attributes:
+      value: "Please never paste real correspondence or findings. / Lütfen gerçek yazışma veya bulgu paylaşmayın."

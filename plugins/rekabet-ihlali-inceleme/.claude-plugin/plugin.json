@@ -1,0 +1,23 @@
+{
+  "name": "rekabet-ihlali-inceleme",
+  "displayName": "Rekabet İhlali İnceleme",
+  "version": "1.1.0",
+  "description": "Competition-law risk review for corporate email, Teams, SharePoint and file shares: sourced red flags and a lawyer-ready report. Rekabet hukuku risk incelemesi.",
+  "author": {
+    "name": "Savaş Saygılı"
+  },
+  "repository": "https://github.com/savsay/antitrust-investigator",
+  "keywords": [
+    "antitrust",
+    "competition-law",
+    "rekabet",
+    "bid-rigging",
+    "cartel",
+    "ediscovery",
+    "purview",
+    "compliance",
+    "kvkk"
+  ],
+  "homepage": "https://github.com/savsay/antitrust-investigator",
+  "license": "MIT"
+}

@@ -1,0 +1,46 @@
+name: New legal source / Yeni hukuk kaynağı
+description: Suggest a law, guideline or decision for the catalogue / Kataloğa kanun, kılavuz veya karar önerin
+title: "[source] "
+labels: ["legal-source"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title / Başlık
+      placeholder: "Guidelines on Exclusionary Conduct"
+    validations:
+      required: true
+  - type: input
+    id: authority
+    attributes:
+      label: Authority / Kurum
+      placeholder: "Rekabet Kurumu, European Commission, CMA, FAS..."
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official URL / Resmî bağlantı
+      description: Official sites only (rekabet.gov.tr, europa.eu, gov.uk, justice.gov, oecd.org...)
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Document type / Belge türü
+      options: [Kanun / Law, Kılavuz / Guideline, Karar / Decision, Duyuru / Announcement, Taslak / Draft, Diğer / Other]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or decision no. / Sürüm veya karar no
+  - type: input
+    id: controls
+    attributes:
+      label: Related controls / İlgili kontroller
+      placeholder: "HD-03, DKY-05"
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters / Neden önemli

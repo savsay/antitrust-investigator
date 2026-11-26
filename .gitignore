@@ -1,0 +1,26 @@
+# Paket çıktıları
+dist/
+*.zip
+
+# Kaynak dosyaları repoya girmez; bağlantıları references/kaynaklar.csv içindedir
+*.pdf
+!plugins/rekabet-ihlali-inceleme/evals/**/files/**/*.pdf
+Rekabet_AI_Agent_Paketi/
+
+# Gerçek inceleme verisi asla repoya girmez
+*.pst
+*.ost
+*.msg
+inceleme_*/
+isabetler.csv
+envanter.csv
+bulgular.json
+
+# Eval çalıştırma sonuçları
+**/evals/results/
+*-workspace/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

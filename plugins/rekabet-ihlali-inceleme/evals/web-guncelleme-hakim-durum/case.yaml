@@ -1,0 +1,7 @@
+schema_version: "1.1"
+name: web-guncelleme-hakim-durum
+expected_outcome: |
+  Claude yalnız resmî alan adlarında (rekabet.gov.tr vb.) arama yapar, bulduğu metni URL ve erişim
+  tarihiyle "web — hukuk onayı yok" olarak etiketler, HD-03 / DKY-05 gibi kontrolleri eşler ve
+  kaynağı kataloğa ekleyecek bir kaynak_yonet.py ekle komutu üretir. Web sorgularında şirket içi
+  bilgi yoktur. Hâkim durum sonucu çıkarmaz; eksik pazar verisini listeler.

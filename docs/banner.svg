@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-label="antitrust-investigator: a Claude skill that finds competition-law red flags in corporate email and documents">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b2d"/>
+      <stop offset="1" stop-color="#1d3354"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+
+  <!-- documents -->
+  <g transform="translate(900 70)">
+    <rect x="0" y="40" width="190" height="240" rx="14" fill="#24406a" stroke="#4f73a8" stroke-width="2"/>
+    <rect x="40" y="10" width="190" height="240" rx="14" fill="#2b4b7b" stroke="#5c82bb" stroke-width="2"/>
+    <g fill="#8fb0dc" opacity="0.8">
+      <rect x="66" y="48" width="130" height="10" rx="5"/>
+      <rect x="66" y="74" width="110" height="10" rx="5"/>
+      <rect x="66" y="100" width="138" height="10" rx="5"/>
+      <rect x="66" y="152" width="96" height="10" rx="5"/>
+      <rect x="66" y="178" width="124" height="10" rx="5"/>
+    </g>
+    <rect x="62" y="122" width="146" height="18" rx="6" fill="#f2b84b"/>
+    <!-- magnifier -->
+    <circle cx="200" cy="178" r="62" fill="none" stroke="#f2b84b" stroke-width="12"/>
+    <circle cx="200" cy="178" r="56" fill="#f2b84b" fill-opacity="0.10"/>
+    <line x1="244" y1="222" x2="300" y2="278" stroke="#f2b84b" stroke-width="18" stroke-linecap="round"/>
+  </g>
+
+  <text x="72" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">antitrust-investigator</text>
+  <text x="72" y="192" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#c9d7ee">Competition-law red flags in corporate email and documents,</text>
+  <text x="72" y="226" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#c9d7ee">with sources, exact quotes and a lawyer in the loop.</text>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="19" font-weight="600">
+    <rect x="72" y="270" width="168" height="40" rx="20" fill="#f2b84b"/>
+    <text x="156" y="296" text-anchor="middle" fill="#0f1b2d">Claude skill</text>
+    <rect x="254" y="270" width="150" height="40" rx="20" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+    <text x="329" y="296" text-anchor="middle" fill="#ffffff">140 controls</text>
+    <rect x="418" y="270" width="176" height="40" rx="20" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+    <text x="506" y="296" text-anchor="middle" fill="#ffffff">50 legal sources</text>
+    <rect x="608" y="270" width="132" height="40" rx="20" fill="none" stroke="#8fb0dc" stroke-width="2"/>
+    <text x="674" y="296" text-anchor="middle" fill="#ffffff">TR · EN · RU</text>
+  </g>
+  <text x="72" y="352" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" fill="#8fb0dc">Outlook · Teams · SharePoint · OneDrive · file shares · Purview exports</text>
+</svg>

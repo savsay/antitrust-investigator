@@ -1,0 +1,14 @@
+{
+  "name": "antitrust-investigator",
+  "description": "Competition-law (antitrust) review skills for Claude",
+  "owner": {
+    "name": "Savaş Saygılı"
+  },
+  "plugins": [
+    {
+      "name": "rekabet-ihlali-inceleme",
+      "source": "./plugins/rekabet-ihlali-inceleme",
+      "description": "Kurumsal mail, belge ve SharePoint kayıtlarında rekabet hukuku risk göstergesi incelemesi"
+    }
+  ]
+}
