@@ -23,5 +23,7 @@
     "kvkk"
   ],
   "homepage": "https://github.com/savsay/antitrust-investigator",
-  "license": "MIT"
+  "license": "MIT",
+  "privacyPolicyUrl": "https://github.com/savsay/antitrust-investigator/blob/main/PRIVACY.md",
+  "supportUrl": "https://github.com/savsay/antitrust-investigator/issues"
 }
