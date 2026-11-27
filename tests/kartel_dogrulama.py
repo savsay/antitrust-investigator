@@ -19,7 +19,7 @@ ihalelerden hesaplanmis tarama degerlerinin ozeti (min/max/mean/median) ve karte
 Kullanim:
   python3 tests/kartel_dogrulama.py [--veri tests/veri/kartel] [--indir] [--tekrar 200]
 Cikis kodu 0: tum beklentiler tuttu; 1: en az biri tutmadi; 2: veri yok."""
-import argparse, csv, hashlib, json, os, random, statistics, sys, urllib.request
+import argparse, csv, hashlib, json, os, random, statistics, sys, urllib.error, urllib.request
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(KOK, "plugins", "rekabet-ihlali-inceleme", "skills", "rekabet-ihlali-inceleme", "scripts"))
@@ -78,9 +78,19 @@ def kirilma_gercek_cv(kartel, rekabet, uzunluk, tekrar, tohum=1):
 
 
 def indir(dosya, hedef):
+    """Dosyayi indirir. Site erisimi reddederse False doner (veri yok sayilir, test atlanir)."""
     os.makedirs(os.path.dirname(hedef), exist_ok=True)
-    with urllib.request.urlopen(dosya["url"], timeout=120) as r, open(hedef, "wb") as f:
-        f.write(r.read())
+    istek = urllib.request.Request(dosya["url"], headers={
+        "User-Agent": "antitrust-investigator-validation/1.3 (+https://github.com/savsay/antitrust-investigator)"})
+    try:
+        with urllib.request.urlopen(istek, timeout=120) as r:
+            veri = r.read()
+    except (urllib.error.URLError, TimeoutError) as ex:
+        print(f"::warning::kartel verisi indirilemedi ({dosya['dosya']}): {ex}. Dosyayi tarayicidan indirip --veri klasorune koyun.")
+        return False
+    with open(hedef, "wb") as f:
+        f.write(veri)
+    return True
 
 
 def main():
@@ -95,7 +105,8 @@ def main():
         yol = os.path.join(a.veri, b["dosya"])
         if not os.path.exists(yol) and a.indir:
             print(f"indiriliyor: {b['dosya']}")
-            indir(b, yol)
+            if not indir(b, yol):
+                sys.exit(2)
         if not os.path.exists(yol):
             print(f"VERI YOK: {yol}  (--indir kullanin ya da dosyayi bu klasore koyun)")
             sys.exit(2)

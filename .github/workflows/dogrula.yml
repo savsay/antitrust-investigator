@@ -53,7 +53,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Imhof-Wallimann verisinde ihale taramalari
-        run: python tests/kartel_dogrulama.py --indir --veri /tmp/kartel
+        # Cikis 2 = veri indirilemedi (dis site); uyari verip atlanir. Beklenti tutmazsa (cikis 1) is kirmizi yanar.
+        run: |
+          set +e
+          python tests/kartel_dogrulama.py --indir --veri /tmp/kartel
+          kod=$?
+          if [ $kod -eq 2 ]; then echo "::warning::Kartel verisi indirilemedi; dogrulama ATLANDI"; exit 0; fi
+          exit $kod
 
   release:
     if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
