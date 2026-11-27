@@ -127,7 +127,7 @@ Ayrıntılar ve kontrol, ipucu ve sözlük ekleme için [CONTRIBUTING.md](CONTRI
 - Çalışan iletişiminin incelenmesi için hukuki dayanak ve aydınlatma (KVKK) kurum tarafından sağlanmalıdır.
 - İhale taraması uyarıları kanıt değil okuma önceliğidir; dar fiyat bandı olan sektörlerde eşikler düşürülmelidir.
 - Ön-tarama betiği sentetik örneklerle ve rekabet ihlali içermeyen gerçek bir iş posta kutusuyla (Enron, 141 öğe) test edilmiştir. Gerçek verideki isabet oranı, hukukça etiketlenmiş örneklerle ayrıca ölçülmelidir.
-- Değişkenlik kırılması taraması kısa serilerde (12 ihaleden az) çalışmaz; İsviçre etkisi büyüklüğünde 20 ihalelik bir seride yakalama oranı yaklaşık %60'tır. Uyarı bir okuma önceliğidir.
+- Değişkenlik kırılması taraması kısa serilerde (12 ihaleden az) çalışmaz. Gerçek CV değerleriyle kurulan 20 ihalelik serilerde yakalama oranı İsviçre'de %94, İtalya'da %75, Japonya'da %43'tür; 40 ihalede %99,5 / %98,5 / %78,5. Uyarı bir okuma önceliğidir.
 - Vaka defterindeki onay kodu bir parçanın açıldığını kanıtlar, okumanın kalitesini kanıtlamaz; her işaret bu yüzden bir karar ve gerektiğinde gerekçe ister.
 
 ## Lisans
