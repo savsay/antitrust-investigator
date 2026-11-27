@@ -7,11 +7,27 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 - **Odaklı tarama:** Verilen konu, anahtar kelime, rakip ve proje adlarına odaklanır. Türkçe, İngilizce ve Rusça yazışmalarda çalışır.
 - **Kaynaklı değerlendirme:** Her bulgu `references/kontroller.csv` içindeki bir kontrole (FYT, IHL, PZR, BLG, IK, DKY, HD, JV, BD, DL, ALG) ve `references/kaynaklar.csv` içindeki bir hukuk kaynağına bağlanır.
 - **Güncel kalma:** Katalogda eksik ya da eski kalan bir kaynak varsa yalnız resmî sitelerden bakar. Bulduğu kaynağı "hukuk onayı yok" diye işaretler ve kataloğa eklenecek komutu hazırlar.
-- **İhale verisi taraması:** Teklif tablosunda kazanan rotasyonu, sabit fiyat farkı, olağandışı yakın teklif, hep az farkla kaybeden firma ve tekrarlanan çekilme işaretlerini kodla hesaplar. Kamu ihalesinde 4734 ve TCK m.235 paralel riskini ayrıca belirtir.
+- **Vaka defteri ve okuma kanıtı:** Her belge yaklaşık 3000 karakterlik parçalara bölünür. Her parça gösterildiğinde tek kullanımlık bir onay kodu alır ve yalnız o kodla işaretlenebilir. Üç gösterge ayrı tutulur: kuyruk, okuma kapsamı ve sinyal kararı. Biri eksikse rapor **KISMİ** damgası taşır. Avukat yazışması ve kapsam dışı içerik metne çevrilmeden ayrılır.
+- **İddia yapısıyla bulgu doğrulaması:** Bulgu kim, hangi eylem (teklif, ret, kabul…), neyi, kime ve hangi alıntıyla sorularına cevap veren bir iddia listesidir. Aşağıdaki bulgular reddedilir:
+  - Başlığı "anlaştılar" deyip yalnız teklif gösteren bulgu.
+  - Ret içeren alıntıyı kabulün kanıtı yapan bulgu.
+  - Okunmamış parçadan alıntı yapan, katalogda olmayan kaynağa ya da var olmayan maddeye dayanan bulgu.
+  - İhbarcının adını içeren bulgu.
+- **Örtülü dil:** "Her zamanki gibi", "malum konu", "sıra sizde" gibi ifadeler için dayanaklı bir hipotez kurulur. Defter, ifadenin daha önce okunmuş geçişlerini yeniden okumaya açar (geri tarama). Yalnız hipoteze dayanan bulgu `risk_signal` olamaz.
+- **Okuyucular:** PST/OST, arşivler, OpenDocument, RTF, eski .doc/.xls/.ppt dosyaları, taranmış görseller ve PDF sayfaları (Türkçe/İngilizce/Rusça OCR) okunur. Yanlış dil modeliyle üretilmiş anlamsız OCR çıktısı kayda alınmaz.
+- **İhale verisi taraması:** Teklif tablosunda kodla hesaplanan işaretler:
+  - kazanan rotasyonu,
+  - sabit fiyat farkı,
+  - olağandışı yakın teklif,
+  - hep az farkla kaybeden firma,
+  - tekrarlanan çekilme,
+  - **değişkenlik kırılması** (teklif dağılımının bir dönemde daralması).
+
+  Kırılma taraması gerçek kartel verisiyle doğrulandı: Imhof ve Wallimann (2021), İsviçre, İtalya ve Japonya. Kamu ihalesinde 4734 ve TCK m.235 paralel riski ayrıca belirtilir.
 - **Bağımsız hat ve ihbarcı koruması:** İddia üst yönetimi veya talep edenin hattını kapsıyorsa raporu onlara değil, Denetim Komitesi ya da bağımsız müşavire yönlendirir. İhbarcı kimliğini rapora koymaz.
 - **Güvenlik:** Salt okunur çalışır. Belge içindeki talimatları uygulamaz. Avukat yazışmalarını ve kişisel hesapları ayırır. Web aramalarına şirket içi bilgi koymaz.
 
-> Bu repo gerçek inceleme verisi içermez ve içermemelidir. `evals/` ve `tests/veri/` altındaki örneklerin tamamı sentetiktir.
+> Bu repo gerçek inceleme verisi içermez ve içermemelidir. `evals/` ve `tests/veri/` altındaki yazışmaların tamamı sentetiktir. Tek istisna `tests/veri/pst/dist-list.pst`: java-libpst projesinin (Apache-2.0) yayımladığı, kişisel veri içermeyen küçük bir test dosyası.
 
 ## Repo yapısı
 
@@ -24,16 +40,21 @@ Kurumsal e-posta, Teams, SharePoint/OneDrive ve dosya sunucusu kayıtlarını **
 │   └── skills/rekabet-ihlali-inceleme/      ← skill'in kendisi (claude.ai'ye yüklenen klasör)
 │       ├── SKILL.md
 │       ├── scripts/rekabet_tarama.py        ön-tarama betiği
-│       ├── scripts/ihale_analiz.py          teklif verisi taraması
+│       ├── scripts/vaka.py                  vaka defteri: okuma kanıtı, bulgu doğrulama, geri tarama, rapor
+│       ├── scripts/okuyucular.py            PST, OCR, arşiv, ODF, RTF, eski Office okuyucuları
+│       ├── scripts/ihale_analiz.py          teklif verisi taraması (değişkenlik kırılması dahil)
 │       ├── scripts/kaynak_yonet.py          kaynak ekleme / doğrulama
 │       └── references/
-│           ├── kaynaklar.csv                61 hukuk kaynağı
+│           ├── kaynaklar.csv                62 kaynak
 │           ├── kontroller.csv               147 kontrol
 │           ├── arama_ipuclari.csv           TR/EN/RU arama ipuçları
-│           ├── bulgu_semasi.json            bulgu çıktı şeması (v1.1)
+│           ├── bulgu_semasi.json            bulgu çıktı şeması (v1.2)
+│           ├── okuma_protokolu.md           vaka defteri ve üç gösterge
+│           ├── bulgu_dogrulama.md           iddia yapısı ve ret nedenleri
+│           ├── ortulu_dil.md                örtülü dil yöntemi ve geri tarama
 │           └── metinler/                    (isteğe bağlı) kaynak metinleri
-├── evals/                                   6 test senaryosu (33 kontrol)
-├── tests/                                   test betiği ve sentetik örnekler
+├── evals/                                   8 test senaryosu (47 kontrol)
+├── tests/                                   testler, sentetik örnekler, örnek PST, kartel verisi doğrulaması
 ├── tools/paketle.py                         claude.ai zip'ini üretir
 └── .github/workflows/dogrula.yml            her PR'da test, her sürüm etiketinde zip
 ```
@@ -105,7 +126,9 @@ Ayrıntılar ve kontrol, ipucu ve sözlük ekleme için [CONTRIBUTING.md](CONTRI
 - Katalogdaki kaynakların hukuk onayı `Bekliyor` durumundadır.
 - Çalışan iletişiminin incelenmesi için hukuki dayanak ve aydınlatma (KVKK) kurum tarafından sağlanmalıdır.
 - İhale taraması uyarıları kanıt değil okuma önceliğidir; dar fiyat bandı olan sektörlerde eşikler düşürülmelidir.
-- Ön-tarama betiği sentetik örneklerle test edilmiştir. Gerçek verideki isabet oranı, hukukça etiketlenmiş örneklerle ayrıca ölçülmelidir.
+- Ön-tarama betiği sentetik örneklerle ve rekabet ihlali içermeyen gerçek bir iş posta kutusuyla (Enron, 141 öğe) test edilmiştir. Gerçek verideki isabet oranı, hukukça etiketlenmiş örneklerle ayrıca ölçülmelidir.
+- Değişkenlik kırılması taraması kısa serilerde (12 ihaleden az) çalışmaz; İsviçre etkisi büyüklüğünde 20 ihalelik bir seride yakalama oranı yaklaşık %60'tır. Uyarı bir okuma önceliğidir.
+- Vaka defterindeki onay kodu bir parçanın açıldığını kanıtlar, okumanın kalitesini kanıtlamaz; her işaret bu yüzden bir karar ve gerektiğinde gerekçe ister.
 
 ## Lisans
 

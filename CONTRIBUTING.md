@@ -58,10 +58,20 @@ Yeni bir risk ailesi eklerseniz SKILL.md'deki bölüm 6 özetine de bir satır e
 - `tara()` içine bir blok ekleyin; her uyarı bir kontrol kimliği (`IHL-…`), ölçülen metrik ve **alternatif açıklama** taşımalı.
 - Eşiği komut satırı seçeneği yapın ve varsayılanı `SKILL.md` bölüm 5'e yazın.
 - `tests/test_skill.py` içindeki rastgele rekabetçi pazar testinin yanlış alarm sınırı (%12) geçilmemeli; sentetik halka (`tests/veri/ihale_ornek.csv`) yakalanmaya devam etmeli. Gerçek ihale verisini repoya koymayın.
+- Varyans tabanlı bir taramayı değiştirdiyseniz `python3 tests/kartel_dogrulama.py --indir --veri /tmp/kartel` çalıştırın. Betik Imhof–Wallimann verisini (CC BY 4.0) indirir, SHA-256 ile doğrular ve beklenen AUC değerleriyle karşılaştırır. Bu değerler `tests/veri/kartel_beklenen.json` dosyasındadır ve depodaki koddan bağımsız bir uygulamayla hesaplanmıştır. Veri depoya girmez.
+
+## 4A. Vaka defteri ve okuyucular
+
+`scripts/vaka.py` (okuma kanıtı, bulgu doğrulama, geri tarama, rapor) ve `scripts/okuyucular.py` (PST, OCR, arşiv, ODF, RTF, eski Office) yalnız standart kütüphaneyle çalışır. Dış araçlar varsa kullanılır: readpst, tesseract (tur, eng, rus), pdftoppm, catdoc. Hangilerinin kurulu olduğunu `python3 scripts/vaka.py doktor` gösterir.
+
+- Bulgu doğrulamaya yeni bir kural eklerken önce kuralı ihlal eden bir bulgu yazın ve `tests/test_vaka.py`'de reddedildiğini sınayın; sonra kuralı ekleyin.
+- `bulgular.json` şemaya uymalıdır (`references/bulgu_semasi.json`). Yeni alanlar isteğe bağlı eklenir; v1 zorunlu alanları değişmez.
+- PST testleri iki dış projenin test dosyalarını kullanır. Beklenen değerler bizim okuyucumuzdan değil, o projelerin kendi testlerinden alınmıştır (`tests/veri/pst/beklenen.json`). Küçük `dist-list.pst` (java-libpst, Apache-2.0) depodadır. `enron.pst` (pst-extractor, MIT) ise CI'da sabit commit adresinden indirilir.
+- OCR testi Türkçe ve Kiril görsel üretir; yanlış dil modeliyle okunan görselin anlamsız diye işaretlendiğini denetler. Araçlar yoksa ilgili testler ATLANDI olarak geçer.
 
 ## 5. Claude dizini sürümü
 
-Claude dizini, Verified olmayan yayıncılardan yalnız Markdown, metin, JSON, YAML ve görsel kabul eder. Bu yüzden dizine `directory/rekabet-ihlali-inceleme/` klasörü gönderilir: CSV kataloglar JSON'a, `ihale_analiz.py` Markdown içinde kod bloğuna dönüşür. Bu klasörü elle düzenlemeyin; ana eklentiyi değiştirdikten sonra şunu çalıştırın:
+Claude dizini, Verified olmayan yayıncılardan yalnız Markdown, metin, JSON, YAML ve görsel kabul eder. Bu yüzden dizine `directory/rekabet-ihlali-inceleme/` klasörü gönderilir. Bu klasörde CSV kataloglar JSON'a, `ihale_analiz.py`, `vaka.py` ve `okuyucular.py` ise Markdown içinde kod bloğuna dönüşür. Model bu kodu çalışma klasörüne yazar ve `REKABET_REF=<skill>/references` ile çalıştırır; `tests/test_vaka.py` bu yolu uçtan uca sınar. Bu klasörü elle düzenlemeyin; ana eklentiyi değiştirdikten sonra şunu çalıştırın:
 
 ```bash
 python3 tools/dizin_surumu.py
@@ -72,7 +82,9 @@ Test ve CI, klasörün güncel olmasını ister. Dizin, `main` dalındaki yeni c
 ## 6. Test ve sürüm
 
 ```bash
-python3 tests/test_skill.py      # frontmatter, betik eşliği, ad tutarlılığı, katalog, 60 sentetik örnek, ihale taraması
+python3 tests/test_skill.py      # frontmatter, betik eşliği, ad tutarlılığı, katalog, 69 sentetik örnek, ihale taraması
+python3 tests/test_vaka.py       # vaka defteri, bulgu doğrulama, okuyucular (PST, OCR), dizin sürümü
+python3 tests/kartel_dogrulama.py --indir --veri /tmp/kartel   # gerçek kartel verisi (ağ gerekir)
 python3 tools/paketle.py         # dist/rekabet-ihlali-inceleme.zip
 ```
 
@@ -81,7 +93,7 @@ Sürüm çıkarmak için:
 1. `plugins/rekabet-ihlali-inceleme/.claude-plugin/plugin.json` içindeki `version` alanını artırın.
 2. `CHANGELOG.md` dosyasına not düşün.
 3. PR açın; GitHub Actions testleri çalıştırır.
-4. Birleştirdikten sonra etiketleyin: `git tag v1.2.0 && git push --tags`. Actions zip'i Releases sayfasına ekler.
+4. Birleştirdikten sonra etiketleyin: `git tag v1.3.0 && git push --tags`. Actions zip'i Releases sayfasına ekler.
 5. claude.ai'de kurum geneline dağıtıldıysa: kurum sahibi eski skill'i kaldırıp yeni zip'i yükler. Claude Code kullanıcıları yeni sürümü otomatik alır.
 
 ## Asla repoya eklemeyin

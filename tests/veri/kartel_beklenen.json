@@ -1,0 +1,97 @@
+{
+ "kaynak": "Imhof, D. ve Wallimann, H. (2021). Detecting bid-rigging coalitions in different countries and auction formats. International Review of Law and Economics 68, 106016. doi:10.1016/j.irle.2021.106016. Veri: Mendeley Data v1, doi:10.17632/x8jwmbcpgn.1 (katalogda INT-02)",
+ "lisans": "CC BY 4.0",
+ "not": "AUC degerleri bu depodaki Python koduyla degil, tarayicida ayri yazilmis bir JavaScript uygulamasiyla (tirnakli alanlari dogru ayristiran CSV okuyucu, esit degerlere yarim sira) tam dosyalar uzerinde hesaplanmistir; kartel_dogrulama.py ayni degerleri bagimsiz olarak yeniden uretmelidir. Iki uygulama ayni alt orneklemde dorduncu haneye kadar ayni sonucu vermistir.",
+ "olculer": {
+  "mean3cvbid": {
+   "dusuk_kartel": true,
+   "anlam": "koalisyonun ihalelerindeki ortalama degiskenlik katsayisi"
+  },
+  "median3cvbid": {
+   "dusuk_kartel": true,
+   "anlam": "medyan degiskenlik katsayisi"
+  },
+  "mean3Spread": {
+   "dusuk_kartel": true,
+   "anlam": "ortalama yayilim (en yuksek-en dusuk teklif)"
+  },
+  "mean3Diffperc": {
+   "dusuk_kartel": true,
+   "anlam": "ortalama yuzde fark"
+  },
+  "mean3Kolmo_stat": {
+   "dusuk_kartel": false,
+   "anlam": "Kolmogorov-Smirnov istatistigi"
+  },
+  "mean3RD1": {
+   "dusuk_kartel": false,
+   "anlam": "goreli mesafe"
+  },
+  "mean3skew1": {
+   "dusuk_kartel": true,
+   "anlam": "carpiklik"
+  }
+ },
+ "en_az_auc": 0.7,
+ "kirilma_orani_esigi": 1.5,
+ "kirilma_en_cok_yanlis": 0.1,
+ "kirilma_40_en_az_guc": 0.65,
+ "ulkeler": {
+  "Isvicre": {
+   "dosya": "Swissdata.csv",
+   "url": "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/04d04a26-ae28-4101-8eb7-5faf1b765055/file_downloaded",
+   "bayt": 842570,
+   "sha256": "cdb616b95ff46e49131881a9d1e8b0c64023ca09c41f0d2047298352b5ab3728",
+   "satir": 1542,
+   "kartel": 896,
+   "auc": {
+    "mean3cvbid": 0.9085,
+    "median3cvbid": 0.9113,
+    "mean3Spread": 0.9036,
+    "mean3Diffperc": 0.8274,
+    "mean3Kolmo_stat": 0.9042,
+    "mean3RD1": 0.6956,
+    "mean3skew1": 0.6927
+   }
+  },
+  "Japonya": {
+   "dosya": "Japanesedata.csv",
+   "url": "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/0d5d30f4-0e02-4a83-a42d-c01d155e1950/file_downloaded",
+   "bayt": 867017,
+   "sha256": "8dd425f53cef56be290396dea59ec89cf7fbeee9ca37b43ac3a9c18678885766",
+   "satir": 2000,
+   "kartel": 207,
+   "auc": {
+    "mean3cvbid": 0.7416,
+    "median3cvbid": 0.8637,
+    "mean3Spread": 0.7383,
+    "mean3Diffperc": 0.662,
+    "mean3Kolmo_stat": 0.6902,
+    "mean3RD1": 0.4577,
+    "mean3skew1": 0.6319
+   }
+  },
+  "Italya": {
+   "dosya": "Italiandata.csv",
+   "url": "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/4e40bd38-b1dc-4e42-8565-a9c37c07844f/file_downloaded",
+   "bayt": 7452588,
+   "sha256": "58b1d0f2960c6439c5bbe6e7c1eeb2d246866c52db15af5ea73a580f76b0c038",
+   "satir": 20252,
+   "kartel": 1474,
+   "auc": {
+    "mean3cvbid": 0.8503,
+    "median3cvbid": 0.862,
+    "mean3Spread": 0.7966,
+    "mean3Diffperc": 0.7789,
+    "mean3Kolmo_stat": 0.8927,
+    "mean3RD1": 0.4774,
+    "mean3skew1": 0.4585
+   }
+  }
+ },
+ "ihale_bicimi": {
+  "Isvicre": "birinci fiyat kapali teklif",
+  "Japonya": "birinci fiyat kapali teklif",
+  "Italya": "ortalama fiyat kapali teklif (mean-price); CV davranisi farkli olabilir"
+ }
+}

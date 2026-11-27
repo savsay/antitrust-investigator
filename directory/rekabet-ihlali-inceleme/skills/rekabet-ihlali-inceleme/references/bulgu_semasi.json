@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/competition-agent/finding-v1.1.schema.json",
-  "title": "Rekabet risk bulgusu v1.1",
+  "$id": "https://example.invalid/competition-agent/finding-v1.2.schema.json",
+  "title": "Rekabet risk bulgusu v1.2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -97,6 +97,13 @@
           "translation": {
             "type": "string",
             "description": "Alıntının çevirisi; kanıt özgün dildeki quote alanıdır"
+          },
+          "role": {
+            "enum": [
+              "supporting",
+              "counter"
+            ],
+            "description": "counter: bulguya karşı kanıt (ör. ret cevabı); yoksa destekleyici"
           }
         }
       }
@@ -214,6 +221,112 @@
         "type": "string"
       },
       "description": "Bulguyu destekleyen ihale_analiz.py uyarı kimlikleri (ör. U-001)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bulgunun başlığı; claims ile aynı yönde olmalı (vaka.py denetler)"
+    },
+    "area": {
+      "enum": [
+        "rekabet",
+        "komsu"
+      ],
+      "description": "rekabet: rekabet hukuku göstergesi; komsu: güvenlik, erişim gibi komşu alan, rekabet ihlali diye adlandırılmaz"
+    },
+    "claims": {
+      "type": "array",
+      "description": "Kim, kime, neyi, hangi eylemle; teklif/ret/kabul ayrımı burada korunur",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kim",
+          "eylem",
+          "neyi",
+          "kanit"
+        ],
+        "properties": {
+          "kim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "eylem": {
+            "enum": [
+              "teklif",
+              "ret",
+              "kabul",
+              "uygulama",
+              "bilgi_paylasimi",
+              "talimat",
+              "silme",
+              "engelleme",
+              "sapma",
+              "karar",
+              "taahhut",
+              "sozlesme"
+            ]
+          },
+          "neyi": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kime": {
+            "type": "string"
+          },
+          "kanit": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "description": "evidence içindeki kanıt kimlikleri (K1…)"
+          },
+          "belirsiz": {
+            "type": "boolean",
+            "description": "Yorum ya da örtülü dil hipotezine dayanıyor"
+          },
+          "kosul": {
+            "type": "string",
+            "description": "Koşullu kabulün koşulu"
+          },
+          "aktaran": {
+            "type": "string",
+            "description": "Olayı aktaran kişi (dolaylı anlatım)"
+          },
+          "ret_aciklamasi": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "coded_language": {
+      "type": "array",
+      "description": "Bulgunun dayandığı örtülü dil hipotezleri; hipotez kanıt değildir",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "phrase",
+          "hypothesis",
+          "basis"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "phrase": {
+            "type": "string"
+          },
+          "hypothesis": {
+            "type": "string"
+          },
+          "basis": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "allOf": [
@@ -262,5 +375,5 @@
       }
     }
   ],
-  "description": "v1 ile geriye dönük uyumludur: zorunlu alanlar değişmedi; v1.1 isteğe bağlı alanlar ekler."
+  "description": "v1 ve v1.1 ile geriye dönük uyumludur: zorunlu alanlar değişmedi; v1.1 assessment, parallel_exposure, escalation_route, data_screens ekledi; v1.2 title, area, claims, coded_language ve kanıtta role ekler (vaka.py çıktısı)."
 }

@@ -1,5 +1,34 @@
 # Değişiklik günlüğü
 
+## 1.3.0 — 2026-11-27
+
+- **Vaka defteri (`scripts/vaka.py`, yalnız standart kütüphane):**
+  - Yetki kapısı: yetki, amaç ve kapsam olmadan vaka açılmaz ve vaka dosyası oluşmaz.
+  - Kısıtlı içerik (avukat alan adı, gizlilik ibaresi, kapsam dışı desen) metne çevrilmeden ayrılır; ekleri ve alt öğeleri de ayrılır.
+  - Belgeler yaklaşık 3000 karakterlik parçalara bölünür; her parça gösterildiğinde tek kullanımlık bir onay kodu alır.
+  - Üç ayrı gösterge (kuyruk, okuma kapsamı, sinyal kararı); biri eksikse rapor KISMİ damgası taşır.
+  - Rastgele örneklem ve Wilson güven aralığı, paralel okuyucular (`--isci`), SHA-256 ile kaynak bütünlüğü denetimi.
+  - Okunamayan belgeyi gerekçeyle kapatmak için `belge-coz`.
+- **Bulgu doğrulaması:** Bulgu bir iddia listesidir (kim · eylem · neyi · kime · kanıt). Teklif, ret ve kabul ayrımı denetlenir. Aşağıdakiler reddedilir:
+  - Ret içeren alıntıyı kabulün dayanağı yapmak.
+  - "Anlaştılar" diyen ama yalnız teklif gösteren başlık.
+  - Okunmamış parçadan alıntı; katalogda olmayan kaynak; 4054 sayılı Kanun'da bulunmayan madde (1–65, geçici 1–7).
+  - İhbarcı adı; bağımsız hat gerektiren durumda yönlendirmenin eksik olması.
+  - Koşullu kabulü ya da aktarılan anlatımı başlıkta belirtmemek.
+  - Bütün iddiaları belirsiz olan bir `risk_signal`.
+- **Örtülü dil:** Dayanaklı kod hipotezi (`kod-ekle`) ve geri tarama: hipotez daha önce okunmuş geçişleri yeniden açar. Ön taramaya ORTULU kavramı eklendi; tek başına kuyruğa almaz, karşı tarafla birlikte B, temayla birlikte A olur. Yöntem `references/ortulu_dil.md`'de.
+- **Okuyucular (`scripts/okuyucular.py`):** PST/OST (readpst), zip-slip korumalı arşivler, OpenDocument, RTF, eski .doc/.xls/.ppt (catdoc), uzantısız eklerin içerikten tanınması, taranmış görsel ve metinsiz PDF sayfası OCR'ı (tur+eng+rus). Anlamsız OCR çıktısı kayda alınmaz.
+- **Değişkenlik kırılması taraması (`ihale_analiz.py`, IHL-10):** Teklif CV serisinde permütasyon testi ve seriler arası Benjamini-Hochberg düzeltmesi; her dönemde en az 6 ihale ve 1,5 kat oran aranır. Her ihalenin CV'si `ihale_cv.csv`'ye yazılır.
+- **Gerçek kartel verisiyle doğrulama (`tests/kartel_dogrulama.py`):** Imhof ve Wallimann (2021) verisi; İsviçre, İtalya ve Japonya için CV AUC'si 0,91 / 0,85 / 0,74. Veri CI'da indirilir ve SHA-256 ile doğrulanır; depoya girmez. Kaynak INT-02 olarak kataloğa eklendi (62 kaynak).
+- **Düzeltme:** Ön taramada `zam` kalıbı "zaman" kelimesini de yakalıyordu ("her zamanki gibi" FIYAT sayılıyordu); düzeltildi.
+- **Bulgu şeması v1.2:** Zorunlu alanlar değişmedi. İsteğe bağlı yeni alanlar: `title`, `area`, `claims`, `coded_language` ve kanıtta `role`. Vaka raporu bu şemaya karşı test edilir.
+- **Testler:**
+  - `tests/test_vaka.py`: yetki kapısı, onay kodları, bulgu reddi nedenleri, geri tarama, KISMİ damgası, bütünlük, dizin sürümü uçtan uca, OCR, PST.
+  - PST testleri iki dış projenin test dosyalarıyla yapılır (java-libpst dist-list.pst, pst-extractor enron.pst); beklenen değerler o projelerin kendi testlerinden alınmıştır.
+  - 9 yeni sentetik örnek (69).
+  - 2 yeni değerlendirme senaryosu: teklif/ret/koşullu kabul ayrımı ve örtülü dil ile geri tarama. Toplam 8 senaryo, 47 kontrol.
+- **Claude dizini sürümü:** `vaka.py` ve `okuyucular.py` Markdown içinde gelir; katalog JSON'dan okunur (`REKABET_REF`).
+
 ## 1.2.0 — 2026-11-26
 
 - **İhale verisi taraması:** `scripts/ihale_analiz.py` (yalnız standart kütüphane). Kazanan rotasyonu, sabit teklif farkı, olağandışı yakın/aynı teklif, hep az farkla kaybeden profil ve çekilme sonrası kazanma; her uyarı kontrol kimliği, metrik ve alternatif açıklama taşır. 500 rastgele rekabetçi pazarda %7–9 yanlış alarm, sentetik halkada %100 yakalama.

@@ -84,7 +84,7 @@ Hukuk bilgisini şu sırayla kullan. "Skill klasörü", bu SKILL.md dosyasının
 | Outlook / SharePoint / OneDrive / Teams (bağlayıcı varsa) | Bağlayıcının arama araçlarıyla, kapsam terimleri ve tarih filtresiyle salt okunur ara; her sonucu kalıcı kimliği (message-id / URL) ile kaydet. Bağlayıcı kullanıcının kendi yetkisiyle çalışır; kurum geneli tarama için yeterli değildir. |
 | Kurum geneli e-posta / Teams / SharePoint | **Microsoft Purview eDiscovery (Premium)** önerilir: zincirleme muhafaza (legal hold), hash ve dışa aktarma kaydı sağlar. Sen KQL sorgularını hazırla, yetkili kişi çalıştırsın, dışa aktarımı (PST/MSG/EML, native dosyalar, load file) sana versin. |
 | Dosya sunucusu / yerel klasör | Bağlı klasör araçlarıyla (device bash varsa orada) betiği klasör üzerinde çalıştır; dosyaları taşımadan oku. |
-| Dışa aktarımlar | .eml, .msg (`pip install extract-msg`), .pst (`readpst -e -o <hedef>` ile önce EML'e aç), .docx, .xlsx (gizli sayfa, yorum, formül dahil), .pptx, .pdf (metin yoksa OCR gerekir), .zip (ayrı klasöre aç). |
+| Dışa aktarımlar | `vaka.py yukle` (bölüm 5A) şunları kendisi açar: .eml, .pst/.ost (readpst; her öğe ayrı belge), .zip/.tar/.gz (rar/7z araç varsa), .docx/.xlsx/.pptx, .odt, .rtf, eski .doc/.xls/.ppt (catdoc), .pdf ve görseller (metin yoksa Tesseract OCR, tur+eng+rus), uzantısız ekler (içerikten). .msg için `pip install extract-msg`. Eksik araçları `vaka.py doktor` listeler. |
 
 Purview KQL örneği (konu + taraf + tarih; ihtiyaca göre çoğalt):
 ```
@@ -109,8 +109,32 @@ Her belge için envanter tut: document_id, kaynak yol/URI, sha256, boyut, deği�
    python3 scripts/ihale_analiz.py teklifler.csv --cikti ihale_uyarilari.csv
    ```
    `scripts/ihale_analiz.py` yoksa (Claude dizini sürümü) `scripts/ihale_analiz.md` içindeki kodu değiştirmeden çalışma klasörüne `ihale_analiz.py` olarak yaz ve onu çalıştır.
-   Betik beş tarama yapar: kazanan rotasyonu (IHL-03), kaybedenle kazanan arasında sabit yüzde farkı (IHL-07), aynı ihalede olağandışı yakın/aynı teklifler (IHL-05), hep az farkla kaybeden destek-teklif profili (IHL-01), çekilmenin ardından hep aynı firmanın kazanması (IHL-02). Varsayılan eşikler 500 sentetik rekabetçi pazarda %7–9 yanlış alarm ve sentetik halkada %100 yakalama verdi; fiyat bandı dar sektörlerde (asfalt, beton) yanlış alarm artar, `--yakin-teklif` ve `--kaybeden-fark` değerlerini düşür. Her uyarı yalnız bir okuma önceliğidir: uyarı veren ihalelerin yazışmalarını ve teklif belgelerini oku; belgeyle desteklenmeyen uyarıyla bulgu açma (IHL-10, MT-24). Ayrıca belge düzeyinde bak: farklı firmaların tekliflerinde aynı yazar/oluşturma metadatası veya aynı yazım hatası (IHL-05), kaybedene sonradan alt yüklenicilik (IHL-04).
+   Betik altı tarama yapar: kazanan rotasyonu (IHL-03), kaybedenle kazanan arasında sabit yüzde farkı (IHL-07), aynı ihalede olağandışı yakın/aynı teklifler (IHL-05), hep az farkla kaybeden destek-teklif profili (IHL-01), çekilmenin ardından hep aynı firmanın kazanması (IHL-02) ve **değişkenlik kırılması** (IHL-10): tüm ihalelerde, her idarede ve her firmanın girdiği ihalelerde teklif CV'sinin (std/ortalama) bir dönemde belirgin düştüğü nokta; permütasyon testi bölme noktası aramasını p'ye katar, seriler arası Benjamini-Hochberg düzeltmesi yapılır, her dönemde en az 6 ihale ve 1,5 kat oran aranır. Her ihalenin CV'si ayrıca `ihale_cv.csv`'ye yazılır. Gerçek kartel verisinde (Imhof–Wallimann; İsviçre, İtalya, Japonya) kartel koalisyonlarının CV'si rekabetçilere göre belirgin düşüktür (AUC 0,74–0,91; medyan oran 1,8–5,6); gerçek CV değerlerinden kurulan 40 ihalelik serilerde kırılma İsviçre ve İtalya'da ≈%97, Japonya'da ≈%73 oranında yakalandı; kartelsiz seride yanlış alarm ≈%5 (`tests/kartel_dogrulama.py`). 12'den kısa seride kırılma testi çalışmaz. Tüm taramaların varsayılan eşikleri 500 sentetik rekabetçi pazarda toplam %7–9 yanlış alarm (10 ve 24 ihalelik pazar) ve sentetik halkada %100 yakalama verdi; fiyat bandı dar sektörlerde (asfalt, beton) yanlış alarm artar, `--yakin-teklif` ve `--kaybeden-fark` değerlerini düşür. Her uyarı yalnız bir okuma önceliğidir: uyarı veren ihalelerin yazışmalarını ve teklif belgelerini oku; belgeyle desteklenmeyen uyarıyla bulgu açma (IHL-10, MT-24). Ayrıca belge düzeyinde bak: farklı firmaların tekliflerinde aynı yazar/oluşturma metadatası veya aynı yazım hatası (IHL-05), kaybedene sonradan alt yüklenicilik (IHL-04).
 6. **Gizleme izleri.** "Telefonla konuşalım", "maile yazma", kişisel hesaba geçiş, inceleme duyurusundan sonra silme talebi — tek başına ihlal değil, ama ilgili konuşmanın önceliğini yükseltir.
+
+## 5A. Vaka defteri — gerçek incelemede okuma kanıtı
+
+Gerçek veriyle yapılan her incelemede, yaklaşık 20'den fazla belgede ya da birden çok okuyucu (alt ajan) çalışacaksa okumayı `scripts/vaka.py` defteriyle yürüt. Defter okumayı yapmaz; okumanın yapıldığını ve her sinyalin bir karara bağlandığını kanıtlar. Ayrıntı: `references/okuma_protokolu.md`.
+
+```
+python3 scripts/vaka.py ac VAKA --yetki "<talimat no>" --amac "<olay>" --kapsam "<kişi/tarih/sistem>" \
+  --avukat-alan "<büro alan adları>" --haric "<kapsam dışı desenler>" --talep-eden "<rol>" --ust-yonetim "<rol>"
+python3 scripts/vaka.py yukle VAKA <klasör>          # kısıtlı içerik metne çevrilmeden ayrılır
+python3 scripts/vaka.py sonraki VAKA --n 3            # her parça tek kullanımlık [[ONAY: …]] koduyla gelir
+python3 scripts/vaka.py isaretle VAKA --json isaret.json
+python3 scripts/vaka.py kod-ekle VAKA --ifade "…" --hipotez "…" --dayanak "…"   # örtülü dil + geri tarama
+python3 scripts/vaka.py bulgu-ekle VAKA --json bulgu.json   # iddia yapısı denetlenir; kural dışıysa reddedilir
+python3 scripts/vaka.py dogrula VAKA --kaynak-kok <klasör>  # kanıt, kaynak bütünlüğü (SHA-256), kapsam, sinyal kararı
+python3 scripts/vaka.py rapor VAKA --kaynak-kok <klasör>    # rapor.md + bulgular.json + kapsama.csv
+```
+
+- **Yetki kapısı:** `--yetki/--amac/--kapsam` yoksa vaka açılmaz; uydurma, kullanıcıya sor. Kurgusal veri için `--sentetik` (rapor damgalanır).
+- **Üç gösterge** ayrıdır: (1) kuyruk — her parça onay koduyla işaretlendi mi, (2) okuma kapsamı — okunamayan parça/belge kaldı mı (`belge-coz` ile gerekçeli kapatma), (3) sinyal kararı — her sinyal bulguya bağlandı ya da gerekçeyle kapatıldı mı. Biri eksikse rapor **KISMİ** damgası taşır. "Kuyruk bitti" ≠ "tamamı okundu" ≠ "riskler eksiksiz raporlandı".
+- Her şey okunamıyorsa `sonraki --rastgele` ile örneklem oku; rapor okunmayan kısım için güven aralıklı tahmin verir, ama raporu tamamlanmış saymaz.
+- Paralel okuyucular `sonraki --isci <ad>` kullanır ve işe başlamadan `hafiza` çıktısını (kod hipotezleri) okur.
+- Raporu Claude dokümanına ve .docx'e (bölüm 9) `rapor.md`/`bulgular.json`'dan aktar; sayıları yeniden hesaplama.
+
+Claude dizini sürümünde `scripts/vaka.md`, `scripts/okuyucular.md` ve `scripts/ihale_analiz.md` içindeki kodu değiştirmeden çalışma klasörüne `.py` olarak, bölüm 11'deki betiği `rekabet_tarama.py` olarak yaz; katalog için `REKABET_REF=<skill klasörü>/references` ortam değişkenini ver.
 
 ## 6. Rekabet risk kontrolleri (çekirdek katalog)
 
@@ -141,13 +165,15 @@ Betikteki `K` sözlüğü bu kavramları TR/EN/RU olarak taşır. İnsan okumas�
 - **Bağlam azaltıcılar (dikkatle oku, otomatik aklama yapma):** reddettik, hukuk ekibine bildirdik, eğitim örneği, hukuk değerlendirmesi bekleniyor, kamuya açık veriler, bağımsız belirledik, aynı ekonomik bütünlük/grup şirketi; refused, training example, legal review pending, publicly available; отказались, учебный пример.
 - **Erişim kısıtı:** avukat, hukuk müşaviri, counsel, privilege, kişisel e-posta, gmail/hotmail, "hukuki yetki kaydı yok".
 
+- **Örtülü dil:** malum konu, her zamanki gibi, konuştuğumuz gibi, sıra sizde, birimsiz sayı ("12 olsun"); as usual, your turn; как обычно, ваша очередь. Tek başına kuyruğa alınmaz; karşı tarafla ya da gizleme diliyle birlikte B, temayla birlikte A olur. Anlamını sen belirleme: `vaka.py kod-ekle` ile dayanaklı **hipotez** kur; defter daha önce okunmuş geçişleri yeniden açar (geri tarama). Yöntem: `references/ortulu_dil.md`.
+
 Sözlüğü, incelenen birimin jargonuyla genişlet (proje kodları, rakip lakapları, "dostlar", "arkadaşlar", "masa" gibi örtük adlandırmalar) — kurum içi kısaltmaları kullanıcıya sorarak ekle.
 
 ## 8. Sinyali bulguya çevirme
 
 Her isabet için:
 
-1. **Kim, kime, ne dedi?** Gönderen, alıcılar, tarih (yerel ve UTC), konuşmanın önceki ve sonraki mesajları. İfadenin yönünü koru: aktarılan söz, soru, ret, alay, eğitim alıntısı ayrı şeylerdir (MT-06, MT-07, MT-11).
+1. **Kim, kime, ne dedi?** Gönderen, alıcılar, tarih (yerel ve UTC), konuşmanın önceki ve sonraki mesajları (`vaka.py baglam`). İfadenin yönünü koru: teklif kabul değildir, ret teklifi silmez, koşullu kabul koşulsuz değildir; aktarılan söz, soru, alay, eğitim alıntısı ayrı şeylerdir (MT-06, MT-07, MT-11). Bulguyu `iddialar` listesi olarak yaz (kim · eylem: teklif/ret/kabul/… · neyi · kime · kanıt); `vaka.py bulgu-ekle` başlığı iddialarla çelişen, ret içeren alıntıyı kabule dayanak yapan, okunmamış parçadan alıntılayan ya da katalogda olmayan kaynağı gösteren bulguyu reddeder. Kurallar: `references/bulgu_dogrulama.md`.
 2. **Taraf ilişkisi.** Rakip mi, tedarikçi/müşteri mi, konsorsiyum ortağı mı, aynı grup/ekonomik bütünlük mü? Belgeyle desteklenmeyen ilişkiyi varsayma; "taraf ilişkisi doğrulanmalı" diye eksik olgulara yaz.
 3. **Meşru açıklamalar.** Gerçek konsorsiyum/JV ihtiyacı, ortak alım, kamuya açık veya geçmiş/toplulaştırılmış veri, düzenleyici zorunluluk, grup içi fiyatlama, alt yüklenicilik. Varsa yaz; istisna iddiası otomatik aklama değildir (MT-08).
    **Yabancı dilde yazışma:** alıntıyı özgün dilde ver (`quote`), çeviriyi ayrı alanda (`translation`) göster; çeviriden alıntı yapma, çeviriye dayanarak ofset verme (MT-25).
@@ -162,7 +188,7 @@ Her isabet için:
    - *Orta:* hassas bilgi akışı var, mutabakat belirsiz; dikey kısıt; JV bilgi taşması.
    - *Düşük:* belirsiz veya tek taraflı ifade, zayıf bağlam.
    Önceliğin yanında üç ekseni ayrı ayrı yaz (`assessment`): **etki** (pazar, tutar, kamu ihalesi mi), **aciliyet** (süren ihale, delil kaybı), **kanıt yeterliliği** (doğrudan alıntı mı, dolaylı mı). Kamu ihalesi söz konusuysa rekabet dışı paralel riskleri `parallel_exposure` alanına yaz ve bulguyu `Acil` işaretle (IHL-09); hukuki nitelendirmeyi hukuka bırak.
-6. **Alıntıyı doğrula** — betikteki `tara()` çıktısındaki `start_char`/`end_char` ofsetleri katlanmamış orijinal metne aittir. Kendi seçtiğin alıntıyı şu kontrolle doğrula:
+6. **Alıntıyı doğrula** — vaka defterinde `bulgu-ekle` ve `dogrula` bunu yapar. Defter dışında: `tara()` çıktısındaki `start_char`/`end_char` ofsetleri katlanmamış orijinal metne aittir; kendi seçtiğin alıntıyı şu kontrolle doğrula:
    ```python
    assert metin[start:end] == alinti, "alıntı kaynakla eşleşmiyor — bulgu yayımlanmaz"
    ```
@@ -179,7 +205,7 @@ Kullanıcı başka bir biçim istemediyse:
    - Erişim kısıtlı ve işlenemeyen kayıtlar.
    - Kaynak güncelleme önerileri (bölüm 3).
    - Sınırlamalar ve beyan: "Bu rapor risk göstergesi içerir; ihlal tespiti değildir. Değerlendirme yetkili hukuk ekibine aittir."
-2. **bulgular.json** — her bulgu Bulgu_Semasi v1.1 alanlarıyla: finding_id, finding_type, jurisdictions, control_ids, summary, priority, evidence[document_id, quote, start_char, end_char, location], legal_references[source_id, section, version], missing_facts, alternative_explanations, human_review_required (risk_signal ve access_restricted için true), next_action, versions{model, prompt, rules, corpus}; varsa isteğe bağlı assessment{impact, urgency, evidence_sufficiency}, parallel_exposure, escalation_route, data_screens (ihale_analiz uyarı kimlikleri) ve kanıtta language/translation.
+2. **bulgular.json** — `vaka.py rapor` üretir (Bulgu_Semasi v1.2: v1.1'e ek isteğe bağlı title, area, claims, coded_language, kanıtta role). Her bulgu şu alanlarla: finding_id, finding_type, jurisdictions, control_ids, summary, priority, evidence[document_id, quote, start_char, end_char, location], legal_references[source_id, section, version], missing_facts, alternative_explanations, human_review_required (risk_signal ve access_restricted için true), next_action, versions{model, prompt, rules, corpus}; varsa isteğe bağlı claims, assessment{impact, urgency, evidence_sufficiency}, parallel_exposure, escalation_route, data_screens (ihale_analiz uyarı kimlikleri) ve kanıtta language/translation.
 3. İstenirse **takip tablosu** (bulgu başına satır). Sonuç sütunu boş bırakılır ve yalnız insan doldurur: `doğrulandı` / `çürütüldü` / `yeterli kanıt yok` / `hukuka devredildi`; ayrıca karar veren rol, karar tarihi ve ilgili düzeltici aksiyon. Kapatılan bulgular eşik ve sözlük ayarına geri bildirim olarak kullanılır.
 
 Raporu kendiliğinden "avukat-müvekkil gizliliği" ibaresiyle etiketleme; gizlilik ibaresini hukuk ekibinin talimatına göre ekle. Raporu ticari ekiplere dağıtma önerisinde bulunma; dağıtımı hukuk belirler (OP-03, OP-13).
@@ -236,7 +262,7 @@ python3 rekabet_tarama.py <KOK_KLASOR> --terimler "Ankara Metro,Rakip Yapı,raki
 ```
 Gerekirse: `pip install python-docx openpyxl pypdf python-pptx extract-msg` (sistem paketiyse `--break-system-packages`). Betik dosyalara yazmaz; yalnız iki CSV üretir. Çıktı bir **okuma kuyruğudur** (ERISIM → A → B → C), bulgu değildir. İnşaat/ihale yoğun bir şirkette C seviyesi kalabalık olur; zamanını A ve B'ye ver. Betiği kurum jargonuyla genişletmek için `K` sözlüğüne kök ekle; kalıplar Türkçe/Kiril katlamadan geçtiği için ASCII yazman yeterli.
 
-Bu sözlük paketteki 60 sentetik örnekte (TR/EN/RU) test edildi: 24/24 `risk_signal` ve 18/18 `insufficient_context` A/B seviyesinde, 12/12 `no_signal_in_excerpt` bağlam azaltıcı işaretiyle, 6/6 `access_restricted` ERISIM olarak yakalandı. Hazır ifade listesiyle yapılan ilk denemede ise risk örneklerinin hiçbiri yakalanamamıştı — gerçek yazışmalar kalıp cümleyle değil kendi kelimeleriyle yazılır.
+Bu sözlük paketteki 69 sentetik örnekte (TR/EN/RU) test edildi: 27/27 `risk_signal` ve 21/21 `insufficient_context` A/B seviyesinde, 15/15 `no_signal_in_excerpt` bağlam azaltıcı işaretiyle, 6/6 `access_restricted` ERISIM olarak yakalandı. Rekabet ihlali içermeyen gerçek bir iş posta kutusunda (Enron, 141 öğe) A seviyesi isabet çıkmadı; örtülü dil kavramı yanlış alarm eklemedi. Hazır ifade listesiyle yapılan ilk denemede ise risk örneklerinin hiçbiri yakalanamamıştı — gerçek yazışmalar kalıp cümleyle değil kendi kelimeleriyle yazılır.
 
 ```python
 """Rekabet riski on-tarama (triage). Salt okunur; kaynak dosyalari degistirmez.
@@ -264,7 +290,7 @@ K = {  # kavram -> kok/ifade (regex). TR / EN / RU
            r"accepted", r"confirm", r"birlikte", r"together", r"ikimiz de", r"both of us", r"we both", r"karsilikli",
            r"centilmen", r"gentlemen", r"iki taraf", r"her iki", r"ikisi de", r"both parties", r"обе стороны",
            r"договорил", r"договор[её]нн", r"соглас", r"вместе", r"подтверд", r"оба\b"],
- "FIYAT": [r"fiyat", r"\bzam\b", r"\bzamm?(i|a|lar)", r"iskonto", r"indirim", r"marj", r"price", r"pricing", r"discount",
+ "FIYAT": [r"fiyat", r"\bzam(m\w*|lar\w*|li\w*)?\b", r"iskonto", r"indirim", r"marj", r"price", r"pricing", r"discount",
            r"margin", r"increase", r"цен", r"повыш", r"скидк", r"марж"],
  "IHALE": [r"ihale", r"teklif", r"tender", r"\bbid", r"kazansin", r"let \w+ win", r"cekil", r"withdraw", r"тендер",
            r"заявк", r"предложени", r"выигра"],
@@ -286,6 +312,16 @@ K = {  # kavram -> kok/ifade (regex). TR / EN / RU
  "GIZLEME": [r"aramizda kalsin", r"telefonla konus", r"mail atma", r"maile? yazma", r"e-?postaya yazma", r"yazmayalim",
            r"yaziya dokme", r"yazili olmasin", r"\bsil\b", r"\bsilin", r"delete", r"whatsapp", r"signal\b",
            r"kisisel (mail|e-?posta)", r"between us", r"off the record", r"in writing", r"удал", r"между нами"],
+ # Ortulu dil: konuyu adlandirmadan ortak bilgiye yaslanan ifadeler. Tek basina sinyal degildir;
+ # karsi tarafla ya da gizleme diliyle birlikte gecerse temanin saklandigi ihtimaliyle kuyruga alinir.
+ "ORTULU": [r"her zamanki gibi", r"malum (konu|mesele|is)", r"bildigin (konu|mesele|is)", r"o (konu|mesele)\b",
+           r"konustugumuz (gibi|konu|sekilde)", r"bahsettigimiz (gibi|konu)", r"eski usul", r"bizim usul",
+           r"yuz yuze (konus|anlat|gorus)", r"detaylari (yuz yuze|gorusunce|bulusunca)", r"sira (sizde|sende|bizde|onlarda)",
+           r"bu (sefer|tur|ay|kez) (siz|sen|biz|onlar)\b", r"\d+([.,]\d+)? (olsun|uzerinde kal|altina inme|den asagi inme|ten asagi inme)",
+           r"as usual", r"the usual (way|arrangement|deal|understanding)", r"as we discussed", r"what we discussed",
+           r"you know what i mean", r"the thing we (talked|spoke) about", r"(your|our|their) turn", r"in person",
+           r"face to face", r"как обычно", r"по-старому", r"тот самый (вопрос|тем)", r"известн\w* (вопрос|тем)",
+           r"при встрече", r"(ваша|наша|их) очередь"],
  "BAGLAM_AZALTICI": [r"reddett", r"reddedil", r"refused", r"rejected", r"egitim ornegi", r"training example",
            r"hukuk ekib", r"legal team", r"hukuk degerlendirme", r"legal review", r"bagimsiz", r"independent",
            r"kamuya acik", r"public", r"ekonomik butunluk", r"economic unit", r"отклон", r"отказ", r"учебн",
@@ -304,8 +340,9 @@ def seviye(c, ozel=False):
     tema = c & set(TEMA)
     if "ERISIM" in c: return "ERISIM"          # icerigi analiz etme; hukuka yonlendir
     if ozel: return "A"                        # kullanicinin verdigi terim gecti
-    if tema and (("TARAF" in c and ("MUTABAKAT" in c or "GIZLI_BILGI" in c)) or "GIZLEME" in c): return "A"
+    if tema and (("TARAF" in c and ({"MUTABAKAT", "GIZLI_BILGI", "ORTULU"} & c)) or "GIZLEME" in c): return "A"
     if tema and ({"TARAF", "MUTABAKAT", "GIZLI_BILGI"} & c or ("DIKEY" in c and "FIYAT" in c)): return "B"
+    if "ORTULU" in c and ({"TARAF", "GIZLEME"} & c): return "B"   # tema adlandirilmamis olabilir; okunmali
     if tema: return "C"
     return None
 

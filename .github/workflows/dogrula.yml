@@ -16,8 +16,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Okuyucu araclari (OCR, PST, PDF, eski Office)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q tesseract-ocr tesseract-ocr-tur tesseract-ocr-rus pst-utils poppler-utils catdoc fonts-dejavu-core
+          pip install pypdf pillow jsonschema
+      - name: Ornek PST (pst-extractor, MIT) indir ve dogrula
+        run: |
+          mkdir -p tests/veri/pst/indirilen
+          URL=$(python -c "import json;print(json.load(open('tests/veri/pst/beklenen.json'))['dosyalar']['enron.pst']['url'])")
+          SHA=$(python -c "import json;print(json.load(open('tests/veri/pst/beklenen.json'))['dosyalar']['enron.pst']['sha256'])")
+          curl -sSL --retry 3 -o tests/veri/pst/indirilen/enron.pst "$URL"
+          echo "$SHA  tests/veri/pst/indirilen/enron.pst" | sha256sum -c -
       - name: Testler
         run: python tests/test_skill.py
+      - name: Vaka defteri ve okuyucu testleri
+        run: python tests/test_vaka.py
       - name: Kaynak katalogu
         run: python plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/kaynak_yonet.py dogrula
       - name: Claude dizini surumu guncel mi
@@ -28,6 +42,18 @@ jobs:
         with:
           name: rekabet-ihlali-inceleme-skill
           path: dist/rekabet-ihlali-inceleme.zip
+
+  kartel-verisi:
+    # Gercek kartel verisiyle dogrulama (Imhof ve Wallimann, CC BY 4.0). Veri depoya girmez; her calismada
+    # indirilir ve SHA-256 ile dogrulanir. Dis siteye bagli oldugu icin ayri is olarak calisir.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Imhof-Wallimann verisinde ihale taramalari
+        run: python tests/kartel_dogrulama.py --indir --veri /tmp/kartel
 
   release:
     if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'

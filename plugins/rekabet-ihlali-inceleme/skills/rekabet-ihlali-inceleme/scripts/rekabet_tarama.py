@@ -23,7 +23,7 @@ K = {  # kavram -> kok/ifade (regex). TR / EN / RU
            r"accepted", r"confirm", r"birlikte", r"together", r"ikimiz de", r"both of us", r"we both", r"karsilikli",
            r"centilmen", r"gentlemen", r"iki taraf", r"her iki", r"ikisi de", r"both parties", r"обе стороны",
            r"договорил", r"договор[её]нн", r"соглас", r"вместе", r"подтверд", r"оба\b"],
- "FIYAT": [r"fiyat", r"\bzam\b", r"\bzamm?(i|a|lar)", r"iskonto", r"indirim", r"marj", r"price", r"pricing", r"discount",
+ "FIYAT": [r"fiyat", r"\bzam(m\w*|lar\w*|li\w*)?\b", r"iskonto", r"indirim", r"marj", r"price", r"pricing", r"discount",
            r"margin", r"increase", r"цен", r"повыш", r"скидк", r"марж"],
  "IHALE": [r"ihale", r"teklif", r"tender", r"\bbid", r"kazansin", r"let \w+ win", r"cekil", r"withdraw", r"тендер",
            r"заявк", r"предложени", r"выигра"],
@@ -45,6 +45,16 @@ K = {  # kavram -> kok/ifade (regex). TR / EN / RU
  "GIZLEME": [r"aramizda kalsin", r"telefonla konus", r"mail atma", r"maile? yazma", r"e-?postaya yazma", r"yazmayalim",
            r"yaziya dokme", r"yazili olmasin", r"\bsil\b", r"\bsilin", r"delete", r"whatsapp", r"signal\b",
            r"kisisel (mail|e-?posta)", r"between us", r"off the record", r"in writing", r"удал", r"между нами"],
+ # Ortulu dil: konuyu adlandirmadan ortak bilgiye yaslanan ifadeler. Tek basina sinyal degildir;
+ # karsi tarafla ya da gizleme diliyle birlikte gecerse temanin saklandigi ihtimaliyle kuyruga alinir.
+ "ORTULU": [r"her zamanki gibi", r"malum (konu|mesele|is)", r"bildigin (konu|mesele|is)", r"o (konu|mesele)\b",
+           r"konustugumuz (gibi|konu|sekilde)", r"bahsettigimiz (gibi|konu)", r"eski usul", r"bizim usul",
+           r"yuz yuze (konus|anlat|gorus)", r"detaylari (yuz yuze|gorusunce|bulusunca)", r"sira (sizde|sende|bizde|onlarda)",
+           r"bu (sefer|tur|ay|kez) (siz|sen|biz|onlar)\b", r"\d+([.,]\d+)? (olsun|uzerinde kal|altina inme|den asagi inme|ten asagi inme)",
+           r"as usual", r"the usual (way|arrangement|deal|understanding)", r"as we discussed", r"what we discussed",
+           r"you know what i mean", r"the thing we (talked|spoke) about", r"(your|our|their) turn", r"in person",
+           r"face to face", r"как обычно", r"по-старому", r"тот самый (вопрос|тем)", r"известн\w* (вопрос|тем)",
+           r"при встрече", r"(ваша|наша|их) очередь"],
  "BAGLAM_AZALTICI": [r"reddett", r"reddedil", r"refused", r"rejected", r"egitim ornegi", r"training example",
            r"hukuk ekib", r"legal team", r"hukuk degerlendirme", r"legal review", r"bagimsiz", r"independent",
            r"kamuya acik", r"public", r"ekonomik butunluk", r"economic unit", r"отклон", r"отказ", r"учебн",
@@ -63,8 +73,9 @@ def seviye(c, ozel=False):
     tema = c & set(TEMA)
     if "ERISIM" in c: return "ERISIM"          # icerigi analiz etme; hukuka yonlendir
     if ozel: return "A"                        # kullanicinin verdigi terim gecti
-    if tema and (("TARAF" in c and ("MUTABAKAT" in c or "GIZLI_BILGI" in c)) or "GIZLEME" in c): return "A"
+    if tema and (("TARAF" in c and ({"MUTABAKAT", "GIZLI_BILGI", "ORTULU"} & c)) or "GIZLEME" in c): return "A"
     if tema and ({"TARAF", "MUTABAKAT", "GIZLI_BILGI"} & c or ("DIKEY" in c and "FIYAT" in c)): return "B"
+    if "ORTULU" in c and ({"TARAF", "GIZLEME"} & c): return "B"   # tema adlandirilmamis olabilir; okunmali
     if tema: return "C"
     return None
 

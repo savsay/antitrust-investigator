@@ -67,8 +67,11 @@ Plus 85 process controls for data collection, privacy (KVKK/GDPR), model testing
 1. **Scope gate.** Before reading any content, Claude confirms who authorised the review and its limits: entities, custodians, dates, jurisdictions and systems. Technical admin access is not treated as legal authority.
 2. **Pre-scan.** A bundled script builds a reading queue (`ACCESS` → `A` → `B` → `C`) from concept co-occurrence. It folds Turkish and Cyrillic characters, so `RAKİP`, `rakip` and `rakıp` all match. Hidden Excel sheets and cell comments are included.
 3. **Contextual reading.** Claude opens each hit with its whole thread. It checks who said what to whom, how the parties are related (competitor, JV partner or same economic unit) and whether the offer was refused. It then classifies the finding as `risk_signal`, `insufficient_context`, `no_signal_in_excerpt` or `access_restricted`.
-4. **Bid-data screens (optional).** If you have a table of tender results, a second script flags winner rotation, constant price gaps between bidders, near-identical bids, "always loses by a little" profiles and repeated withdrawals. Every number is computed in code, and each flag comes with an innocent explanation to rule out.
-5. **Verified output.** Quotes are checked character by character against the source; foreign-language quotes stay in the original with the translation shown beside them. Each finding is rated separately on impact, urgency and evidence sufficiency. The report goes to the legal team as a shareable Claude doc and a Word file, together with a machine-readable `findings.json`.
+4. **Case ledger — proof of reading.** For real reviews, a case ledger (`vaka.py`) splits every document into ~3,000-character parts. Each part gets a one-time confirmation code when it is shown, and it can only be marked with that code. Three indicators are kept apart: the **queue** (every part marked?), **reading coverage** (anything unreadable left?) and **signal decisions** (every signal tied to a finding or closed with a reason?). If any one is incomplete, the report is stamped **PARTIAL**. Privileged and out-of-scope material is set aside *before* it is converted to text.
+5. **Claims, not impressions.** A finding is recorded as a list of claims: who, which action (*offer*, *refusal*, *acceptance*, …), what, to whom, on which quote. The ledger rejects a finding whose title says "agreed" when the evidence only shows an offer, one that uses a refusal as proof of acceptance, one that quotes a part nobody has read, cites a source that is not in the catalogue or an article that does not exist, names the whistleblower, or routes a finding about senior management to senior management.
+6. **Coded language.** "As usual", "the thing we discussed", "it's your turn", a bare number ("12 then"). Claude records a *hypothesis* with its basis. The ledger then re-opens every earlier part that contains the phrase, so it is read again with the new interpretation in mind. A finding that rests only on hypotheses cannot be a `risk_signal`.
+7. **Bid-data screens (optional).** If you have a table of tender results, a second script flags winner rotation, constant price gaps between bidders, near-identical bids, "always loses by a little" profiles, repeated withdrawals and a **variance break**: a period in which the spread of bids (coefficient of variation) suddenly narrows. Every number is computed in code, and each flag comes with an innocent explanation to rule out.
+8. **Verified output.** Quotes are checked character by character against the source, and source files are re-hashed (SHA-256) before the report is produced. Foreign-language quotes stay in the original with the translation shown beside them. Each finding is rated separately on impact, urgency and evidence sufficiency. The report goes to the legal team as a shareable Claude doc and a Word file, together with a machine-readable `findings.json`.
 
 ### Who does what
 
@@ -114,7 +117,9 @@ Updates arrive automatically when a new version is published.
 ```bash
 git clone https://github.com/savsay/antitrust-investigator.git
 cd antitrust-investigator
-python3 tests/test_skill.py    # 6 checks, standard library only
+python3 tests/test_skill.py    # skill, catalogue, pre-scan and bid screens (standard library only)
+python3 tests/test_vaka.py     # case ledger and readers (OCR/PST tests skip if the tools are missing)
+python3 tests/kartel_dogrulama.py --indir --veri /tmp/kartel   # real cartel data, downloaded and hash-checked
 python3 tools/paketle.py       # → dist/rekabet-ihlali-inceleme.zip
 ```
 
@@ -174,12 +179,15 @@ Everything the skill knows lives in plain files you can read, review and extend:
 
 | File | Contents |
 |---|---|
-| [`references/kaynaklar.csv`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/kaynaklar.csv) | 61 legal sources: Turkish Competition Act No. 4054 and Competition Authority guidelines and regulations (leniency, settlement, fines), Public Procurement Law No. 4734 and Penal Code Art. 235, EU Art. 101/102 and guidelines, US DOJ/FTC and the DOJ compliance-program guidance, UK CMA, OECD and World Bank bid-rigging red flags, IIA Standards and ISO 37301/37002/37008, KVKK/GDPR, EU AI Act, NIST AI RMF. Each with version, URL, status and approval state |
+| [`references/kaynaklar.csv`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/kaynaklar.csv) | 62 sources: Turkish Competition Act No. 4054 and Competition Authority guidelines and regulations (leniency, settlement, fines), Public Procurement Law No. 4734 and Penal Code Art. 235, EU Art. 101/102 and guidelines, US DOJ/FTC and the DOJ compliance-program guidance, UK CMA, OECD and World Bank bid-rigging red flags, IIA Standards and ISO 37301/37002/37008, KVKK/GDPR, EU AI Act, NIST AI RMF, and the Imhof–Wallimann cartel study behind the bid screens. Each with version, URL, status and approval state |
 | [`references/kontroller.csv`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/kontroller.csv) | 147 controls. Each has a question, the red flag, the evidence needed, a counter-check and its source IDs |
 | [`references/arama_ipuclari.csv`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/arama_ipuclari.csv) | Search cues in Turkish, English and Russian |
-| [`references/bulgu_semasi.json`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/bulgu_semasi.json) | JSON Schema for findings (v1.1: optional impact/urgency/evidence ratings, parallel exposure, escalation route, translations) |
+| [`references/bulgu_semasi.json`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/bulgu_semasi.json) | JSON Schema for findings (v1.2: claims with offer/refusal/acceptance, coded-language hypotheses, counter-evidence; v1.1 ratings, parallel exposure, escalation route, translations). Required fields unchanged since v1 |
+| [`references/okuma_protokolu.md`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/okuma_protokolu.md) · [`bulgu_dogrulama.md`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/bulgu_dogrulama.md) · [`ortulu_dil.md`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/references/ortulu_dil.md) | Reading protocol and the three indicators; finding validation rules; coded-language method and back-scan |
+| [`scripts/vaka.py`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/vaka.py) | Case ledger (SQLite, standard library only): mandate gate, one-time read codes, signals, claim-based finding validation, back-scan, integrity check, PARTIAL-aware report |
+| [`scripts/okuyucular.py`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/okuyucular.py) | Readers: PST/OST (readpst), archives with zip-slip protection, OpenDocument, RTF, legacy .doc/.xls/.ppt (catdoc), scanned images and PDF pages (Tesseract, Turkish/English/Russian) with a garbage-output check, extension-less attachments identified by content |
 | [`scripts/rekabet_tarama.py`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/rekabet_tarama.py) | Read-only pre-scan for EML, MSG, DOCX, XLSX, PPTX, PDF, HTML and TXT. It writes a SHA-256 inventory and lists unprocessable files |
-| [`scripts/ihale_analiz.py`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/ihale_analiz.py) | Bid-data screens on a CSV of tender results (standard library only). Outputs flags with control IDs, metrics and alternative explanations |
+| [`scripts/ihale_analiz.py`](plugins/rekabet-ihlali-inceleme/skills/rekabet-ihlali-inceleme/scripts/ihale_analiz.py) | Bid-data screens on a CSV of tender results (standard library only). Outputs flags with control IDs, metrics and alternative explanations, plus the CV of every tender |
 
 When a source is missing or out of date, the skill checks **official websites only** (rekabet.gov.tr, europa.eu, justice.gov, gov.uk, oecd.org and others). It labels what it finds as *not yet legally approved* and gives you a ready-made command to add the source to the catalogue.
 
@@ -202,11 +210,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for controls, search cues and the release
 
 | Check | Result |
 |---|---|
-| 60 synthetic messages (20 scenarios × TR/EN/RU) | 42/42 risky or ambiguous messages queued as `A`/`B`; 12/12 innocent ones carry a context-reducer flag; 6/6 privileged or personal ones routed to `ACCESS` |
+| 69 synthetic messages (23 scenarios × TR/EN/RU) | 48/48 risky or ambiguous messages (including coded language) queued as `A`/`B`; 15/15 innocent ones carry a context-reducer flag; 6/6 privileged or personal ones routed to `ACCESS` |
+| Real business mailbox (Enron, 141 items, from the [pst-extractor](https://github.com/epfromer/pst-extractor) test data) | Opened end to end in 10 s: 238 parts, 23/25 legacy Office attachments converted, unreadable images listed with a reason; no `A`-level hits and no coded-language false alarms. Folder names, subjects, senders and bodies match the expectations in that project's own tests |
+| Case ledger | Wrong or reused confirmation codes, quotes not in the part, unread parts as evidence, "agreed" headlines over an offer, refusals used as acceptance, invented sources, article 99 of Act 4054, whistleblower names and missing independent escalation all rejected; tampered source files fail the integrity check; incomplete reading stamps the report PARTIAL; report validates against the v1.2 schema |
+| OCR | Turkish scan read exactly; a Russian scan read with the wrong language model is flagged as garbage instead of being indexed |
+| Real cartel data ([Imhof & Wallimann 2021](https://doi.org/10.1016/j.irle.2021.106016), Switzerland, Italy, Japan) | Bid CV separates cartel from competitive coalitions with AUC 0.91 / 0.85 / 0.74 (median 0.91 / 0.86 / 0.86); median CV is 1.8–5.6× lower in cartels. Variance-break test on series built from real CVs: 40-tender detection ≈97% (CH, IT), ≈73% (JP); false alarms ≈5%. Data is downloaded and hash-checked in CI, never committed |
 | Phrase-list baseline (the obvious approach) | 0/24 risk signals found |
 | Mini mailbox + SharePoint folder | Cover-bid email, hidden Excel sheet with a competitor's bid, association minutes and wage-cap email ranked `A`; training email not treated as a risk; corrupt PDF listed as unprocessed; prompt-injection email ignored |
-| Bid-data screens | Synthetic 3-firm ring caught in 200/200 runs (rotation and constant gap); false alarms on 500 random competitive markets: 7% (wide price band) to 9% (narrow band); competitive group in the sample file not flagged |
-| 6 evaluation scenarios ([`evals/`](evals)) | Main workflow, request without legal mandate, self-update from official sources, senior management implicated, bid-data screening, Russian correspondence with translation (33 assertions) |
+| Bid-data screens | Synthetic 3-firm ring caught in 200/200 runs (rotation and constant gap); false alarms on 500 random competitive markets: 7–9% across all six screens; competitive group in the sample file not flagged |
+| 8 evaluation scenarios ([`evals/`](evals)) | Main workflow, request without legal mandate, self-update from official sources, senior management implicated, bid-data screening, Russian correspondence with translation, offer vs. refusal vs. conditional acceptance, coded language with back-scan (47 assertions) |
 
 CI runs the tests on every pull request and attaches the skill zip to every tagged release.
 
@@ -231,6 +243,8 @@ CI runs the tests on every pull request and attaches the skill zip to every tagg
 - [ ] More jurisdictions: Russia (FAS), Kazakhstan, Gulf states
 - [ ] Sector packs: construction, energy, healthcare, real estate
 - [x] Bid-data screens: winner rotation, constant price gaps, near-identical bids, cover-bid profiles, withdrawals
+- [x] Case ledger with proof of reading, claim-based finding validation, coded-language back-scan
+- [x] Variance-break screen validated on real cartel data
 - [ ] Document metadata clustering across competing bids (same author, template or typo)
 - [ ] English edition of the control catalogue
 

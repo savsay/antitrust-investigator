@@ -1340,5 +1340,27 @@
   "training_rights": "Ayrıca hukuk ve lisans incelemesi gerekli",
   "legal_currentness_review": "Olay tarihi ve güncel değişiklikler hukukça doğrulanacak",
   "note": "Ücretli standart; yalnız bağlantı ve künye tutulur, metin eklenmez. Kataloğa 26.11.2026 tarihinde eklendi."
+ },
+ {
+  "source_id": "INT-02",
+  "region": "Uluslararasi",
+  "title": "Detecting bid-rigging coalitions in different countries and auction formats (makale ve veri seti)",
+  "authority": "Imhof, D. ve Wallimann, H.; International Review of Law and Economics 68 (2021) 106016",
+  "version": "2021; veri seti Mendeley Data v1, CC BY 4.0",
+  "document_status": "Akademik çalışma / veri seti",
+  "purpose": "İhale verisinde varyans (CV) ve yayılım taramalarının gerçek kartel verisiyle doğrulanması; ihale_analiz.py eşiklerinin dayanağı",
+  "url": "https://doi.org/10.1016/j.irle.2021.106016",
+  "original_url": "https://data.mendeley.com/datasets/x8jwmbcpgn/1",
+  "landing_url": "",
+  "download_status": "Baglanti var; dosya eklenmedi",
+  "local_file": "",
+  "text_file": "",
+  "page_count": "",
+  "sha256": "",
+  "legal_approval": "Bekliyor",
+  "active_rag": "False",
+  "training_rights": "Ayrıca hukuk ve lisans incelemesi gerekli",
+  "legal_currentness_review": "Olay tarihi ve güncel değişiklikler hukukça doğrulanacak",
+  "note": "Bağlayıcı değildir; yöntem dayanağıdır. Veri depoya konmaz, tests/kartel_dogrulama.py indirir. Kataloğa 27.11.2026 tarihinde eklendi."
  }
 ]

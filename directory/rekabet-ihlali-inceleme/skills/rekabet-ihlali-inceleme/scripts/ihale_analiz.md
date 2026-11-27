@@ -6,19 +6,23 @@ Bu dosya Claude dizini sürümünde betiğin okunabilir kopyasıdır. Aşağıda
 """Ihale teklif verisinde danisiklilik taramasi (OECD / Dunya Bankasi tipi gostergeler).
 
 Kullanim:
-  python3 ihale_analiz.py teklifler.csv [--cikti ihale_uyarilari.csv] [--min-ihale 3]
-                                        [--sabit-fark-cv 0.15] [--sabit-fark-min 4]
+  python3 ihale_analiz.py teklifler.csv [--cikti ihale_uyarilari.csv] [--cv-cikti ihale_cv.csv]
+                                        [--min-ihale 3] [--sabit-fark-cv 0.15] [--sabit-fark-min 4]
                                         [--yakin-teklif 0.01] [--kaybeden-fark 0.10]
+                                        [--kirilma-oran 1.5] [--kirilma-min 6] [--kirilma-p 0.05]
+                                        [--permutasyon 999] [--tohum 20251]
 
 Girdi CSV sutunlari (Turkce ya da Ingilizce ad kabul edilir):
   ihale_id (tender_id), tarih (date, YYYY-AA-GG), firma (bidder), teklif (bid),
   kazanan (winner: 1/0, evet/hayir, true/false)
   istege bagli: kamu (public: evet/hayir), idare (authority), durum (status: gecerli/cekildi/gecersiz)
 
+Her ihalenin degiskenlik katsayisi (CV = std/ortalama, gecerli en az 3 teklif) ayrica ihale_cv.csv'ye yazilir.
+
 Cikti bir uyari listesidir, bulgu degildir. Her uyari ilgili ihalelerin belgeleriyle okunmali;
 fiyat ortusmesi tek basina kartel kaniti sayilmaz (kontrol MT-24, IHL-10).
 Yalniz standart kutuphane kullanir; girdi dosyasini degistirmez."""
-import argparse, csv, hashlib, itertools, json, statistics, sys
+import argparse, csv, hashlib, json, math, random, statistics, sys
 from collections import Counter, defaultdict
 
 ALIAS = {
@@ -88,7 +92,68 @@ def kazanan(ih):
     return k[0] if k else None
 
 
-def tara(ihaleler, min_ihale=3, sabit_fark_cv=0.15, yakin_teklif=0.01, kaybeden_fark=0.10, sabit_fark_min=4):
+def ihale_cv(ih):
+    """Gecerli en az 3 teklifli ihalede CV = pstdev / ortalama; aksi halde None."""
+    tek = [t["teklif"] for t in ih["teklifler"] if t["gecerli"]]
+    if len(tek) < 3 or statistics.mean(tek) <= 0:
+        return None
+    return statistics.pstdev(tek) / statistics.mean(tek)
+
+
+def kirilma_testi(seri, min_taraf=6, permutasyon=999, tohum=20251):
+    """Zaman sirali log(CV) serisinde tek ortalama kaymasi arar.
+
+    Istatistik: her bolme noktasi k icin standartlastirilmis fark
+        T(k) = |ort(sol) - ort(sag)| / (s * sqrt(1/k + 1/(n-k)))   (s: tum serinin std'si)
+    ve T = max_k T(k). p degeri, seri siralamasi rastgele karistirilarak ayni maksimumun
+    yeniden hesaplanmasiyla bulunur; bu yuzden bolme noktasi aramasinin yarattigi coklu
+    deneme payi p'ye zaten dahildir. Donus: (k, T, p, oran) ya da None.
+    oran = iki donemin geometrik ortalama CV orani (>= 1; yuksek donem / dusuk donem)."""
+    n = len(seri)
+    if n < 2 * min_taraf:
+        return None
+    x = [math.log(max(v, 1e-9)) for v in seri]
+    sd = statistics.pstdev(x)
+    if sd == 0:
+        return None
+
+    def en_iyi(dizi):
+        top = sum(dizi)
+        sol, en, en_k = 0.0, -1.0, None
+        for k in range(1, n):
+            sol += dizi[k - 1]
+            if k < min_taraf or n - k < min_taraf:
+                continue
+            fark = abs(sol / k - (top - sol) / (n - k)) / (sd * math.sqrt(1 / k + 1 / (n - k)))
+            if fark > en:
+                en, en_k = fark, k
+        return en, en_k
+
+    T, k = en_iyi(x)
+    rnd = random.Random(tohum)
+    y = x[:]
+    asan = 0
+    for _ in range(permutasyon):
+        rnd.shuffle(y)
+        if en_iyi(y)[0] >= T - 1e-12:
+            asan += 1
+    p = (asan + 1) / (permutasyon + 1)
+    oran = math.exp(abs(statistics.mean(x[:k]) - statistics.mean(x[k:])))
+    return k, T, p, oran
+
+
+def bh_esik(p_listesi, q):
+    """Benjamini-Hochberg: q duzeyinde reddedilen en buyuk p degeri (yoksa -1)."""
+    m = len(p_listesi)
+    esik = -1.0
+    for i, p in enumerate(sorted(p_listesi), 1):
+        if p <= q * i / m:
+            esik = p
+    return esik
+
+
+def tara(ihaleler, min_ihale=3, sabit_fark_cv=0.15, yakin_teklif=0.01, kaybeden_fark=0.10, sabit_fark_min=4,
+         kirilma_oran=1.5, kirilma_min=6, kirilma_p=0.05, permutasyon=999, tohum=20251):
     uyarilar = []
 
     def ekle(tarama, kontrol, firmalar, ihale_listesi, metrik, aciklama, alternatif):
@@ -151,7 +216,7 @@ def tara(ihaleler, min_ihale=3, sabit_fark_cv=0.15, yakin_teklif=0.01, kaybeden_
         ayni = [f for f, s in Counter(t["teklif"] for t in gec).items() if s > 1]
         if yayilim <= yakin_teklif or ayni:
             ekle("YAKIN_TEKLIF", "IHL-05", [t["firma"] for t in gec], [iid],
-                 {"yayilim": round(yayilim, 4), "ayni_tutarli_teklif": len(ayni) > 0},
+                 {"yayilim": round(yayilim, 4), "cv": round(ihale_cv(ih), 4), "ayni_tutarli_teklif": len(ayni) > 0},
                  "Ayni ihaledeki teklifler olagandisi yakin" + (" ve en az iki teklif birebir ayni." if ayni else "."),
                  "Idarenin yaklasik maliyeti veya birim fiyatlari teklifleri belirliyor olabilir.")
 
@@ -189,6 +254,49 @@ def tara(ihaleler, min_ihale=3, sabit_fark_cv=0.15, yakin_teklif=0.01, kaybeden_
             ekle("CEKILME", "IHL-02", [firma, kaz], liste, {"tekrar": len(liste)},
                  f"{firma} teklifini {len(liste)} kez cekmis ya da gecersiz kalmis; her seferinde {kaz} kazanmis.",
                  "Belge eksikligi, kapasite veya teminat sorunu gibi bagimsiz nedenler.")
+
+    # 6) Degiskenlik kirilmasi: tekliflerin dagilimi bir donemde belirgin daraliyor (IHL-10, IHL-07)
+    # Dayanak: gercek kartel verisinde (Imhof ve Wallimann; Isvicre, Italya, Japonya) kartel donemi
+    # koalisyonlarinin medyan CV'si rekabetci donemdekinin 1/1.8 ile 1/5.6'si arasindadir.
+    # Seriler: tum ihaleler, her idare ve her firmanin girdigi ihaleler. Coklu seri icin BH duzeltmesi.
+    seriler = {"TUM": [i for i in ihaleler if ihale_cv(ihaleler[i]) is not None]}
+    idareler, firma_ihale = defaultdict(list), defaultdict(list)
+    for iid in seriler["TUM"]:
+        ih = ihaleler[iid]
+        if ih["idare"]:
+            idareler[ih["idare"]].append(iid)
+        for f in {t["firma"] for t in ih["teklifler"] if t["gecerli"]}:
+            firma_ihale[f].append(iid)
+    seriler.update({f"IDARE:{k}": v for k, v in idareler.items() if len(idareler) > 1})
+    seriler.update({f"FIRMA:{k}": v for k, v in firma_ihale.items()})
+    adaylar = []
+    goruldu = set()
+    for ad, liste in seriler.items():
+        if tuple(liste) in goruldu:          # ayni ihale kumesi ikinci kez test edilmez
+            continue
+        goruldu.add(tuple(liste))
+        cvler = [ihale_cv(ihaleler[i]) for i in liste]
+        r = kirilma_testi(cvler, kirilma_min, permutasyon, tohum)
+        if r:
+            adaylar.append((ad, liste, cvler, r))
+    esik = bh_esik([a[3][2] for a in adaylar], kirilma_p) if adaylar else -1
+    for ad, liste, cvler, (k, T, p, oran) in adaylar:
+        if p > esik or oran < kirilma_oran:
+            continue
+        sol, sag = liste[:k], liste[k:]
+        dusuk, yuksek = (sol, sag) if statistics.median(cvler[:k]) < statistics.median(cvler[k:]) else (sag, sol)
+        cv_d = [ihale_cv(ihaleler[i]) for i in dusuk]
+        cv_y = [ihale_cv(ihaleler[i]) for i in yuksek]
+        firmalar = set.intersection(*({t["firma"] for t in ihaleler[i]["teklifler"] if t["gecerli"]} for i in dusuk))
+        ekle("DEGISKENLIK_KIRILMASI", "IHL-10", firmalar or {ad.split(":", 1)[-1]}, dusuk,
+             {"seri": ad, "bolme_tarihi": ihaleler[liste[k]]["tarih"], "dusuk_donem": [ihaleler[dusuk[0]]["tarih"], ihaleler[dusuk[-1]]["tarih"]],
+              "medyan_cv_dusuk": round(statistics.median(cv_d), 4), "medyan_cv_yuksek": round(statistics.median(cv_y), 4),
+              "geometrik_oran": round(oran, 3), "p": round(p, 4), "bh_esik": round(esik, 4), "permutasyon": permutasyon,
+              "ihale_dusuk": len(dusuk), "ihale_yuksek": len(yuksek)},
+             f"{ad} serisinde teklif dagilimi {ihaleler[dusuk[0]]['tarih']} - {ihaleler[dusuk[-1]]['tarih']} doneminde daralmis: "
+             f"medyan CV {statistics.median(cv_y):.3f} -> {statistics.median(cv_d):.3f} (oran {oran:.2f}, p={p:.3f}).",
+             "Sartname standardizasyonu, idarenin yaklasik maliyetinin ilan edilmesi, girdi fiyatlarinin istikrara kavusmasi, "
+             "pazara giren/cikan firmalar ya da ihale buyuklugundeki degisim.")
     return uyarilar
 
 
@@ -201,9 +309,27 @@ def main():
     ap.add_argument("--sabit-fark-min", type=int, default=4)
     ap.add_argument("--yakin-teklif", type=float, default=0.01)
     ap.add_argument("--kaybeden-fark", type=float, default=0.10)
+    ap.add_argument("--cv-cikti", default="ihale_cv.csv")
+    ap.add_argument("--kirilma-oran", type=float, default=1.5)
+    ap.add_argument("--kirilma-min", type=int, default=6)
+    ap.add_argument("--kirilma-p", type=float, default=0.05)
+    ap.add_argument("--permutasyon", type=int, default=999)
+    ap.add_argument("--tohum", type=int, default=20251)
     a = ap.parse_args()
     ihaleler = oku(a.girdi)
-    uyarilar = tara(ihaleler, a.min_ihale, a.sabit_fark_cv, a.yakin_teklif, a.kaybeden_fark, a.sabit_fark_min)
+    uyarilar = tara(ihaleler, a.min_ihale, a.sabit_fark_cv, a.yakin_teklif, a.kaybeden_fark, a.sabit_fark_min,
+                    a.kirilma_oran, a.kirilma_min, a.kirilma_p, a.permutasyon, a.tohum)
+    cvler = []
+    with open(a.cv_cikti, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["ihale_id", "tarih", "idare", "gecerli_teklif", "cv", "yayilim"])
+        for iid, ih in ihaleler.items():
+            tek = sorted(t["teklif"] for t in ih["teklifler"] if t["gecerli"])
+            cv = ihale_cv(ih)
+            if cv is not None:
+                cvler.append(cv)
+            w.writerow([iid, ih["tarih"], ih["idare"], len(tek), "" if cv is None else round(cv, 6),
+                        round((tek[-1] - tek[0]) / tek[0], 6) if len(tek) >= 2 and tek[0] else ""])
     alanlar = ["uyari_id", "tarama", "kontrol", "firmalar", "ihaleler", "metrik", "aciklama",
                "alternatif_aciklama", "kamu_ihalesi"]
     with open(a.cikti, "w", encoding="utf-8-sig", newline="") as f:
@@ -215,9 +341,13 @@ def main():
     print(json.dumps({"girdi_sha256": sha, "ihale": len(ihaleler), "uyari": len(uyarilar),
                       "tarama_sayilari": dict(Counter(u["tarama"] for u in uyarilar)),
                       "kamu_ihalesi_uyarisi": sum(u["kamu_ihalesi"] == "evet" for u in uyarilar),
+                      "cv": {"ihale": len(cvler), "medyan": round(statistics.median(cvler), 4) if cvler else None,
+                             "min": round(min(cvler), 4) if cvler else None, "max": round(max(cvler), 4) if cvler else None},
                       "esikler": {"min_ihale": a.min_ihale, "sabit_fark_cv": a.sabit_fark_cv, "sabit_fark_min": a.sabit_fark_min,
-                                  "yakin_teklif": a.yakin_teklif, "kaybeden_fark": a.kaybeden_fark},
-                      "cikti": a.cikti}, ensure_ascii=False))
+                                  "yakin_teklif": a.yakin_teklif, "kaybeden_fark": a.kaybeden_fark,
+                                  "kirilma_oran": a.kirilma_oran, "kirilma_min": a.kirilma_min, "kirilma_p": a.kirilma_p,
+                                  "permutasyon": a.permutasyon, "tohum": a.tohum},
+                      "cikti": a.cikti, "cv_cikti": a.cv_cikti}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

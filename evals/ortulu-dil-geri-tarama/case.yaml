@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: ortulu-dil-geri-tarama
+expected_outcome: |
+  "Bahçe işi" rakiple yazışmada işle ilgisiz bir ifade olarak görünür. Model ifadenin anlamını kesinleşmiş
+  saymaz; vaka.py kod-ekle ile dayanaklı bir hipotez kurar. Hipotez kurulduktan sonra daha önce okunmuş
+  01.eml ve 02.eml yeniden okunur (geri tarama). 04.eml Konya ihalesini ve birimsiz sayıyı ("12 olsun")
+  bağlayarak hipotezi destekler. 03.eml (gerçek peyzaj sözleşmesi) ve 05.eml (bahar şenliği) masum
+  açıklama ya da bağlam azaltıcı olarak ele alınır, risk_signal sayılmaz. Yalnız hipoteze dayanan iddia
+  belirsiz olarak işaretlenir.
+context:
+  scaffold_script: place-files.sh

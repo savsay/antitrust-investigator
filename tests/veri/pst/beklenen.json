@@ -1,0 +1,27 @@
+{
+  "aciklama": "Beklenen degerler bizim okuyucumuzdan degil, dosyalari ureten projelerin kendi testlerinden alinmistir.",
+  "dosyalar": {
+    "dist-list.pst": {
+      "kaynak": "java-libpst (Apache-2.0) src/test/resources/dist-list.pst; beklenen: src/test/java/com/pff/DistListTest.java",
+      "depoda": true,
+      "en_az_oge": 1,
+      "metinde_gecmeli": ["contact1@rjohnson.id.au"],
+      "not": "Ayni testin bekledigi dagitim listesi uyeleri (dist1@, dist2@) libpst/readpst tarafindan disa aktarilmaz; bu bilinen bir sinirdir."
+    },
+    "enron.pst": {
+      "kaynak": "pst-extractor (MIT) src/__tests__/testdata/enron.pst; beklenen: src/__tests__/PSTMessage.spec.ts ve PSTFolder.spec.ts",
+      "depoda": false,
+      "url": "https://raw.githubusercontent.com/epfromer/pst-extractor/7d08ef9bc7112c23275fa948306c76bba6e24fba/src/__tests__/testdata/enron.pst",
+      "sha256": "6152489de3472be6f1f840935d34b6dbf5f62b025dd015929ea9cf66eb5a5b46",
+      "klasorler": ["lokay-m/MLOKAY (Non-Privileged)/TW-Commercial Group", "lokay-m/MLOKAY (Non-Privileged)/Systems",
+                    "lokay-m/MLOKAY (Non-Privileged)/Sent Items", "lokay-m/MLOKAY (Non-Privileged)/Personal"],
+      "klasorde_dogrudan_eposta": {"lokay-m/MLOKAY (Non-Privileged)": 1},
+      "iletiler": [
+        {"konu": "New OBA's", "gonderen": "Dennis.Lee@ENRON.com",
+         "govde": "Mojave (Effective date 12/02/01) and Williams Field Services"},
+        {"konu": "I/B Link Capacity for November and December 2001", "gonderen": "JReames@br-inc.com",
+         "govde": "Per our earlier conversation, Burlington Resources agrees to purchase 20,000", "tarih": "24 Oct 2001"}
+      ]
+    }
+  }
+}

@@ -4,7 +4,7 @@
 Dizin, Verified olmayan organizasyonlardan yalnız Markdown, metin, JSON, YAML ve görsel kabul eder.
 Bu araç ana eklentiyi (plugins/rekabet-ihlali-inceleme) şu dönüşümlerle directory/ altına kopyalar:
   - references/*.csv  -> aynı sütunlarla .json (satır başına bir nesne)
-  - scripts/ihale_analiz.py -> scripts/ihale_analiz.md (kod bloğu; SKILL.md onu yazıp çalıştırmayı söyler)
+  - scripts/*.py (ihale_analiz, vaka, okuyucular) -> scripts/*.md (kod bloğu; SKILL.md onları yazıp REKABET_REF ile çalıştırmayı söyler)
   - scripts/rekabet_tarama.py -> atlanır (SKILL.md bölüm 11'de gömülü kopyası var)
   - scripts/kaynak_yonet.py   -> atlanır (bakımcı aracı; GitHub reposunda çalışır)
 Kullanım:  python3 tools/dizin_surumu.py            (üretir)

@@ -10,6 +10,10 @@ Rekabet_AI_Agent_Paketi/
 # Gerçek inceleme verisi asla repoya girmez
 *.pst
 *.ost
+# Tek istisna: dis projeden alinan kucuk PST test dosyasi (Apache-2.0, kaynagi tests/veri/pst/beklenen.json)
+!tests/veri/pst/dist-list.pst
+tests/veri/pst/indirilen/
+tests/veri/kartel/
 *.msg
 inceleme_*/
 isabetler.csv

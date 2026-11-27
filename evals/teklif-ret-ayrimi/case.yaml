@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: teklif-ret-ayrimi
+expected_outcome: |
+  Vaka defteri (vaka.py) yetki bilgileriyle açılır, beş ileti okunur ve işaretlenir. 01.eml rakibe ortak zam
+  teklifi, 02.eml rakibin reddidir; bulgu "teklif edildi, reddedildi" yönünde yazılır, "anlaştılar" denmez ve
+  ret cevabı karşı kanıt olarak gösterilir. 03.eml üçüncü kişinin aktarımıdır, aktarım olarak etiketlenir.
+  04.eml koşullu bir hazır olma beyanıdır, koşullu olarak yazılır. 05.eml kamuya açık fiyat derlemesidir,
+  risk_signal sayılmaz. Rapor üç göstergeyi verir; eksik varsa KISMİ damgası taşır.
+context:
+  scaffold_script: place-files.sh
