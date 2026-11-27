@@ -12,8 +12,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Okuyucu araclari (OCR, PST, PDF, eski Office)
@@ -38,7 +38,7 @@ jobs:
         run: python tools/dizin_surumu.py --denetle
       - name: Skill zip
         run: python tools/paketle.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: rekabet-ihlali-inceleme-skill
           path: dist/rekabet-ihlali-inceleme.zip
@@ -48,8 +48,8 @@ jobs:
     # indirilir ve SHA-256 ile dogrulanir. Dis siteye bagli oldugu icin ayri is olarak calisir.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Imhof-Wallimann verisinde ihale taramalari
@@ -71,8 +71,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: python tools/paketle.py
